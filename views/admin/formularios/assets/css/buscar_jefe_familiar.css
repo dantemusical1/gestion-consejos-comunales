@@ -1,0 +1,44 @@
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-container input[type="text"] {
+    padding-left: 40px; /* Espacio para el ícono */
+    width: 100%; /* Ocupa todo el ancho disponible */
+}
+
+.search-container .icon {
+    position: absolute;
+    left: 10px; /* Espacio desde la izquierda */
+    pointer-events: none; /* Para que el clic no afecte al ícono */
+}
+
+.search-container button {
+    margin-left: 10px; /* Espacio entre el input y el botón */
+}
+
+/* Estilo para el campo de entrada válido */
+.is-valid {
+    border-color: #28a745; /* Verde */
+    background-color: #d4edda; /* Fondo verde claro */
+}
+
+/* Estilo para el campo de entrada inválido */
+.is-invalid {
+    border-color: #dc3545; /* Rojo */
+    background-color: #f8d7da; /* Fondo rojo claro */
+}
+
+/* Estilo para el mensaje de advertencia */
+.invalid-feedback {
+    display: none; /* Ocultar por defecto */
+    color: #dc3545; /* Rojo */
+    font-size: 0.875em; /* Tamaño de fuente más pequeño */
+}
+
+/* Mostrar el mensaje de advertencia cuando el campo es inválido */
+input.is-invalid + .invalid-feedback {
+    display: inline; /* Mostrar el mensaje */
+}

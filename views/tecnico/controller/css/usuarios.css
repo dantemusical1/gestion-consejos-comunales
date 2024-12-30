@@ -1,0 +1,78 @@
+/* Estilos para el modal */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px; /* Ancho del modal */
+    background-color: white; /* Color de fondo del modal */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra del modal */
+    z-index: 1000; /* Asegura que el modal esté por encima de otros elementos */
+    padding: 20px; /* Espaciado interno */
+    display: none; /* Ocultar por defecto */
+}
+
+/* Estilos para la superposición */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro con opacidad */
+    z-index: 999; /* Asegura que la superposición esté por encima de otros elementos */
+    display: none; /* Ocultar por defecto */
+}
+
+/* Estilos para mostrar el modal y la superposición */
+.modal.show,
+.overlay.show {
+    display: block; /* Mostrar cuando se añade la clase 'show' */
+}
+
+/* Estilos para el botón de cerrar */
+.btn-close {
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 24px; /* Tamaño de la fuente */
+    position: absolute; /* Posiciona el botón en la esquina superior derecha */
+    top: 10px;
+    right: 10px;
+}
+
+/* Estilos para el formulario */
+form {
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en columna */
+}
+
+/* Estilos para los campos de entrada */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    margin-bottom: 15px; /* Espaciado entre los campos */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde del campo */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de la fuente */
+}
+
+/* Estilos para el botón de enviar */
+button[type="submit"] {
+    padding: 10px; /* Espaciado interno */
+    background-color: #007bff; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño de la fuente */
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse */
+}
+
+/* Clase para ocultar elementos */
+.hidden {
+    display: none; /* Ocultar elementos */
+}
