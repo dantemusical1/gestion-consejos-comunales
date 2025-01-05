@@ -24,7 +24,16 @@ $rol = isset($_POST["rol"]) ? $_POST["rol"] : '';
 // Para iniciar sesión
 if (isset($_POST["btnloginx"])) {
     $nombre = mysqli_real_escape_string($conn, $nombre); 
+
     // Sanitizar entrada
+
+    /**
+     * Lo que realiza SELECT * FROM login WHERE usu = '$nombre'" es realizar
+     * una busqueda en la base de datos para verificar que existe alguien en la
+     * columna usu tal que coincida con el usuario que ha sido enviado por metodo de post
+     * si esto es cierto procede a comparar la clave por medio del hash MD5
+     * 
+     */
     $queryusuario = mysqli_query($conn, "SELECT * FROM login WHERE usu = '$nombre'");
     
     // Busca entre todas las filas de la base de datos al usuario
@@ -32,57 +41,69 @@ if (isset($_POST["btnloginx"])) {
     $mostrar = mysqli_fetch_array($queryusuario);
 
     if (($nr == 1) && (password_verify($pass, $mostrar['pass']))) {
-        $_SESSION['user_id'] = $user_id; // Set this after validating user credentials
+        $_SESSION['user_id'] = $mostrar['id']; // Asegúrate de que 'id' es el campo correcto
         $_SESSION['nombredelusuario'] = $nombre;
-        $_SESSION['rol'] = $mostrar['rol']; // Guardar el rol en la sesión
+
+// Verificar si el rol coincide
+
+if ($mostrar['rol'] === $rol) {
+
+    $_SESSION['user_id'] = $mostrar['id']; // Asegúrate de que 'id' es el campo correcto
+
+    $_SESSION['nombredelusuario'] = $nombre;
+
+    $_SESSION['rol'] = $mostrar['rol']; // Guardar el rol en la sesión
 
 
-        // Redirigir según el rol
-        switch ($_SESSION['rol']) {
-            case 'admin':
-                header("Location: ../admin/index.php");
-                break;
-            case 'user':
-                header("Location: ../user/index.php");
-                break;
-            case 'tecnico':
-                header("Location: ../tecnico/index.php");
-                break;
-            default:
-                echo "<script>alert('Rol no reconocido.'); window.location= '../index.html';</script>";
-                exit();
-        }
+    // Redirigir según el rol
 
-        exit(); 
-    } else {
-        echo "<script>alert('Usuario o contraseña incorrecto.'); window.location= '../index.html';</script>";
+    switch ($_SESSION['rol']) {
+
+        case 'admin':
+
+            header("Location: ../admin/index.php");
+
+            exit();
+
+        case 'user':
+
+            header("Location: ../user/index.php");
+
+            exit();
+
+        case 'tecnico':
+
+            header("Location: ../tecnico/index.php");
+
+            exit();
+
+        default:
+
+            // Si el rol no es reconocido, redirigir a ../../index.php
+
+            echo "<script>alert('Rol no reconocido.'); window.location= '../../index.php';</script>";
+
+            exit();
+
     }
+
+} else {
+
+    // Si el rol no coincide, redirigir a index.php
+
+    echo "<script>alert('El rol no coincide.'); window.location= '../../index.php';</script>";
+
+    exit();
+
 }
 
-// Para registrar
-if (isset($_POST["btnregistrarx"])) {
-    $nombre = mysqli_real_escape_string($conn, $nombre); // Sanitizar entrada
-    $pass = mysqli_real_escape_string($conn, $pass); // Sanitizar contraseña
-    $rol = mysqli_real_escape_string($conn, $rol); // Sanitizar rol
+} else {
 
-    $queryusuario = mysqli_query($conn, "SELECT * FROM login WHERE usu = '$nombre'");
-    $nr = mysqli_num_rows($queryusuario);
+echo "<script>alert('Usuario o contraseña incorrecto.'); window.location= '../index.html';</script>";
 
-    if ($nr == 0) {
-        $pass_fuerte = password_hash($pass, PASSWORD_BCRYPT); // Hash de la contraseña
-        // Aquí se almacena la contraseña en texto plano
-        $queryregistrar = "INSERT INTO login(`usu`, `pass`, `pass_plain`, `rol`) VALUES ('$nombre', '$pass_fuerte', '$pass', '$rol')";
-
-        if (mysqli_query($conn, $queryregistrar)) {
-            echo "<script>alert('Usuario registrado: $nombre'); window.location= '../index.html';</script>";
-        } else {
-            echo "Error: " . $queryregistrar . "<br>" . mysqli_error($conn);
-        }
-    } else {
-        echo "<script>alert('No puedes registrar a este usuario porque ya tiene una cédula registrada en la base de datos'); window.location= '../index.html';</script>";
-    }
 }
 
-// Cerrar la conexión al final
-$conn->close();
+}
+
+
 ?>

@@ -8,11 +8,20 @@
     <title>Dashboard Administrador</title>
 </head>
 <body>
-    <?php
-include('menu.php');
-    ?>
+   
+
+<?php
+include("menu.php");
+?>
+<!--Aqui empieza el menu de opciones
+
+
+
+
+
+--Aqui termina el menu y comienzan los otros itens a mostrar-->
     <div class="container">
-        <?php
+    <?php
 
 session_start(); // Asegúrate de iniciar la sesión
 
@@ -20,8 +29,7 @@ session_start(); // Asegúrate de iniciar la sesión
 include("../conexion.php"); // Asegúrate de que este archivo contenga la conexión a la base de datos
 
 // Obtener el usuario ingresado
-$usuarioingresado = $_SESSION['usuarioingresando'];
-
+$usuarioingresado = $_SESSION['nombredelusuario']; // Cambiado de 'usuarioingresando' a 'nombredelusuario'
 // Verificar si el usuario está autenticado
 if (!isset($usuarioingresado)) {
     echo "No has iniciado sesión.";
@@ -53,8 +61,8 @@ if ($result->num_rows > 0) {
 $stmt->close();
 $conn->close();
 
-        ?>
+?>
 </div>
-    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
