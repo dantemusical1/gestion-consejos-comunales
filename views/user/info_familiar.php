@@ -20,7 +20,7 @@
     <h2 class="text-center"> Informacion del jefe de familia</h2>
     
 <b>Nombre:</b><?php $nombre="victor"; echo $nombre;?><br>
-<b>cedula:</b><?php $apellido="Alarco";echo $apellido?><br>
+<b>Apellido:</b><?php $apellido="Alarco";echo $apellido?><br>
 <b>Cedula de Identidad:</b><?php $cedula="V-27905225"; print($cedula); ?><br>
 
 </div>

@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "";
+$dbname = "recursos";
 
 // Nombre del archivo de respaldo con la fecha en formato día-mes-año
 $backupFilename = "respaldos_del_sistema/historial_cc" . date("d_m_Y_H_i_s") . ".sql";
