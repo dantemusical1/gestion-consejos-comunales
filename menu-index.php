@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
   
-    <link rel="stylesheet" href="../../asset/css/menu-nav.css">
-    <link rel="stylesheet" href="../../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 
 
@@ -16,18 +15,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="index.php">casa</a>
-        </li>
+ 
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="views/login.php">inicio sesion</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="info_comunidad.php"> <i class="bi bi-houses-fill"></i> Informacion Comunidad</a>
         </li>
-        <li class="nav-item dropdown">
+       <!-- 
+       <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Informacion Adicional
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">Actividades de la comunidad</a></li>
@@ -36,6 +34,7 @@
             <li><a class="dropdown-item" href="#">cronogramas</a></li>
           </ul>
         </li>
+            -->
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
