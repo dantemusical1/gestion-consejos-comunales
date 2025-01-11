@@ -10,6 +10,7 @@ class JefeFamilia {
     public function __construct($id, $primerNombre, $segundoNombre, $primerApellido, $segundoApellido, $cedula) {
         $this->id = $id;
         $this->primerNombre = $primerNombre;
+        $this->primerNombre = $primerNombre;
         $this->segundoNombre = $segundoNombre;
         $this->primerApellido = $primerApellido;
         $this->segundoApellido = $segundoApellido;

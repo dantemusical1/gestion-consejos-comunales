@@ -17,15 +17,22 @@ $miembros = [
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../../../node_modules/bootstrap-icons/font/bootstrap-icons.css">    
     <title>Miembros Consejo Comunal</title>
+    <style>
+        #searchInput {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <?php
-include("menu.php");
-    ?>
-<div class="container">
+    <?php include("menu.php"); ?>
+    <div class="container">
     <div class="row">
         <div class="col-md-12">
             <h1>Lista de Miembros del Consejo Comunal</h1>
+            <div class="input-group mb-3">
+                <input type="text" id="searchInput" class="form-control" placeholder="Buscar por nombre, apellido o cédula...">
+                <button id="searchButton" class="btn btn-primary" type="button">Buscar</button>
+            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -35,7 +42,7 @@ include("menu.php");
                         <th>Nro de Casa</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="miembrosTable">
                     <?php foreach($miembros as $miembro): ?>
                         <tr>
                             <td><?php echo $miembro->getNombre(); ?></td>
@@ -46,11 +53,15 @@ include("menu.php");
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <nav aria-label="Page navigation">
+                <ul class="pagination" id="paginationControls"></ul>
+            </nav>
         </div>
     </div>
 </div>
 
 <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="buscarMiembros.js"></script> <!-- Referencia al archivo JavaScript externo -->
 
 </body>
 </html>

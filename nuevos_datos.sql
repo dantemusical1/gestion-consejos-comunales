@@ -1,19 +1,59 @@
+CREATE DATABASE IF NOT EXISTS consejos_comunales;
+USE consejos_comunales;
+
+CREATE TABLE estados (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE municipios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    estado_id INT,
+    FOREIGN KEY (estado_id) REFERENCES estados(id) ON DELETE CASCADE
+);
+
+CREATE TABLE comunas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    municipio_id INT,
+    FOREIGN KEY (municipio_id) REFERENCES municipios(id) ON DELETE CASCADE
+);
+
+CREATE TABLE consejos_comunales (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    comuna_id INT,
+    FOREIGN KEY (comuna_id) REFERENCES comunas(id) ON DELETE CASCADE
+);
+
+-- Tabla de redes (moved up)
+CREATE TABLE redes (
+    id_redes INT AUTO_INCREMENT PRIMARY KEY,
+    Estado VARCHAR(100) NOT NULL, 
+    Municipio VARCHAR(100) NOT NULL,
+    aldea VARCHAR(100) NOT NULL,
+    consejo_comunal VARCHAR(100) NOT NULL,
+    pag_web VARCHAR(255),
+    facebook VARCHAR(255),
+    whatsapp VARCHAR(50)
+);
+
 -- Tabla de login
-CREATE TABLE `login` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `primer_nombre` varchar(20) NOT NULL,
-  `segundo_nombre` varchar(20) NOT NULL,
-  `primer_apellido` varchar(20) NOT NULL,
-  `segundo_apellido` varchar(20) NOT NULL,
-  `correo` varchar(25) NOT NULL,
-  `usu` varchar(12) NOT NULL,
-  `pass` varchar(225) NOT NULL,
-  `pass_plain` varchar(255) NOT NULL,
-  `rol` varchar(12) NOT NULL,
-  `id_red` INT,  -- Nueva columna para el consejo comunal
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_red`) REFERENCES redes(`id_redes`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE login (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    primer_nombre VARCHAR(20) NOT NULL,
+    segundo_nombre VARCHAR(20),
+    primer_apellido VARCHAR(20) NOT NULL,
+    segundo_apellido VARCHAR(20),
+    correo VARCHAR(25) NOT NULL,
+    usu VARCHAR(12) NOT NULL,
+    pass VARCHAR(225) NOT NULL,
+    pass_plain VARCHAR(255) NOT NULL,
+    rol VARCHAR(12) NOT NULL,
+    id_red INT,  -- Nueva columna para el consejo comunal
+    FOREIGN KEY (id_red) REFERENCES redes(id_redes) ON DELETE SET NULL
+);
 
 -- Tabla de jefes de familia
 CREATE TABLE jefes_familia (
@@ -28,8 +68,8 @@ CREATE TABLE jefes_familia (
     nro_casa VARCHAR(10) NOT NULL,
     email VARCHAR(100),
     telefono VARCHAR(15),
-    `id_red` INT,  -- Nueva columna para el consejo comunal
-    FOREIGN KEY (`id_red`) REFERENCES redes(`id_redes`) ON DELETE SET NULL
+    id_red INT,  -- Nueva columna para el consejo comunal
+    FOREIGN KEY (id_red) REFERENCES redes(id_redes) ON DELETE SET NULL
 );
 
 -- Tabla de miembros de la familia
@@ -53,18 +93,6 @@ CREATE TABLE cargas_familiares (
     primer_apellido VARCHAR(50) NOT NULL,
     segundo_apellido VARCHAR(50),
     FOREIGN KEY (id_jefe_familia) REFERENCES jefes_familia(id) ON DELETE CASCADE
-);
-
--- Tabla de redes
-CREATE TABLE redes (
-    id_redes INT AUTO_INCREMENT PRIMARY KEY,
-    Estado VARCHAR(100) NOT NULL, 
-    Municipio VARCHAR(100) NOT NULL,
-    aldea VARCHAR(100) NOT NULL,
-    consejo_comunal VARCHAR(100) NOT NULL,
-    pag_web VARCHAR(255),
-    facebook VARCHAR(255),
-    whatsapp VARCHAR(50)
 );
 
 -- Tabla de miembros del consejo comunal
@@ -94,12 +122,11 @@ CREATE TABLE historial_entregas_clap (
     FOREIGN KEY (id_jefe_familia) REFERENCES jefes_familia(id) ON DELETE CASCADE
 );
 
-
---Tipo de Cilindro de gas
+-- Tipo de Cilindro de gas
 CREATE TABLE tipo_cilindro (
     id_cilindro INT AUTO_INCREMENT PRIMARY KEY,
-    tipo_cilindro VARCHAR(50) NOT NULL,  -- Aumenté el tamaño para permitir nombres más largos
-    peso_cilindro DECIMAL(5,2) NOT NULL  -- Asegúrate de que el peso tenga sentido en este formato
+    tipo_cilindro VARCHAR(50) NOT NULL,
+    peso_cilindro DECIMAL(5,2) NOT NULL
 );
 
 CREATE TABLE historial_entregas_cilindros (
