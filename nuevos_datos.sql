@@ -1,11 +1,14 @@
+-- Crear la base de datos si no existe
 CREATE DATABASE IF NOT EXISTS consejos_comunales;
 USE consejos_comunales;
 
+-- Tabla de estados
 CREATE TABLE estados (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL
 );
 
+-- Tabla de municipios
 CREATE TABLE municipios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -13,6 +16,7 @@ CREATE TABLE municipios (
     FOREIGN KEY (estado_id) REFERENCES estados(id) ON DELETE CASCADE
 );
 
+-- Tabla de comunas
 CREATE TABLE comunas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -20,6 +24,7 @@ CREATE TABLE comunas (
     FOREIGN KEY (municipio_id) REFERENCES municipios(id) ON DELETE CASCADE
 );
 
+-- Tabla de consejos comunales
 CREATE TABLE consejos_comunales (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -27,7 +32,7 @@ CREATE TABLE consejos_comunales (
     FOREIGN KEY (comuna_id) REFERENCES comunas(id) ON DELETE CASCADE
 );
 
--- Tabla de redes (moved up)
+-- Tabla de redes
 CREATE TABLE redes (
     id_redes INT AUTO_INCREMENT PRIMARY KEY,
     Estado VARCHAR(100) NOT NULL, 
@@ -51,7 +56,7 @@ CREATE TABLE login (
     pass VARCHAR(225) NOT NULL,
     pass_plain VARCHAR(255) NOT NULL,
     rol VARCHAR(12) NOT NULL,
-    id_red INT,  -- Nueva columna para el consejo comunal
+    id_red INT,
     FOREIGN KEY (id_red) REFERENCES redes(id_redes) ON DELETE SET NULL
 );
 
@@ -68,7 +73,7 @@ CREATE TABLE jefes_familia (
     nro_casa VARCHAR(10) NOT NULL,
     email VARCHAR(100),
     telefono VARCHAR(15),
-    id_red INT,  -- Nueva columna para el consejo comunal
+    id_red INT,
     FOREIGN KEY (id_red) REFERENCES redes(id_redes) ON DELETE SET NULL
 );
 
@@ -122,13 +127,14 @@ CREATE TABLE historial_entregas_clap (
     FOREIGN KEY (id_jefe_familia) REFERENCES jefes_familia(id) ON DELETE CASCADE
 );
 
--- Tipo de Cilindro de gas
+-- Tabla de tipo de cilindro de gas
 CREATE TABLE tipo_cilindro (
     id_cilindro INT AUTO_INCREMENT PRIMARY KEY,
     tipo_cilindro VARCHAR(50) NOT NULL,
     peso_cilindro DECIMAL(5,2) NOT NULL
 );
 
+-- Tabla de historial de entregas de cilindros
 CREATE TABLE historial_entregas_cilindros (
     id_entrega INT AUTO_INCREMENT PRIMARY KEY,
     id_miembro INT,

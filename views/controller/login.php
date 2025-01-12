@@ -99,7 +99,7 @@ if ($mostrar['rol'] === $rol) {
 
 } else {
 
-echo "<script>alert('Usuario o contraseña incorrecto.'); window.location= '../index.html';</script>";
+echo "<script>alert('Usuario o contraseña incorrecto.'); window.location= '../../index.php';</script>";
 
 }
 

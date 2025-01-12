@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"><i class="bi bi-house-fill"></i></a>
@@ -8,10 +7,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Actualizar clave</a>
+                    <a class="nav-link active" aria-current="page" href="formularios/actualizar_clave_admin.php">Actualizar clave</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Registros entregas</a>
+                    <a class="nav-link" href="views/">Registros entregas</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -25,9 +24,11 @@
                         <li><a class="dropdown-item" href="formularios/form_actualizar_redes.php">Actualizar redes sociales</a></li>
                     </ul>
                 </li>
+                <!--
                 <li class="nav-item">
-                    <a class="nav-link" href="views/">Vistas y descargas</a>
+                    <a class="nav-link" href="">Vistas y descargas</a>
                 </li>
+                -->
             </ul>
            
         </div>
