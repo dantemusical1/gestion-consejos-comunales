@@ -145,8 +145,8 @@ echo                "</td>";
             </tbody>
         </table>
     </div>
-    <script src="../../node_modules/jquery/dist/jquery.js"></script>
-    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="../../../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="controller/js/ver_password.js"></script>
     <script src="controller/js/modal_modificar_usuario.js"></script>
 </body>

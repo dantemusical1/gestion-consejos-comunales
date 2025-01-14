@@ -81,12 +81,7 @@ include('menu_retroceso.php');
     <div class="form-group mx-4 pt-4 pb-4">
             <button type="submit" class="btn btn-primary form-control" value="Enviar" name="btnloginx"> Iniciar sesion </button>	
     </div>
-<!--
- Aqui se plantea la recuperacion de la clave de usuario mediante un correo electronico valido
-    <p>
-    <a href="controller/recuperar.php" aria-disabled="true" disabled>Perdio su clave</a> 
-    </p>
-    -->
+
         </form>
 </div>
 </div>

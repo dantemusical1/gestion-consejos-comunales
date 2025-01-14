@@ -8,9 +8,9 @@ $errores = [];
 
 // Conexión a la base de datos
 $servername = "localhost"; // Cambia esto si es necesario
-$username = "tu_usuario"; // Cambia esto por tu usuario de MySQL
-$password = "tu_contraseña"; // Cambia esto por tu contraseña de MySQL
-$dbname = "tu_base_de_datos"; // Cambia esto por el nombre de tu base de datos
+$username = "root"; // Cambia esto por tu usuario de MySQL
+$password = ""; /
+$dbname = "consejos_comunales"; // Cambia esto por el nombre de tu base de datos
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
