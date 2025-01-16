@@ -10,13 +10,16 @@
 <body>
 
 <?php
-session_start(); // Asegúrate de iniciar la sesión
+session_start(); 
 
 // Incluir el archivo de conexión a la base de datos
-include("../../config/conexion.php"); // Asegúrate de que este archivo contenga la conexión a la base de datos
+include("../../config/conexion.php");
+
+// Asegúrate de que este archivo contenga la conexión a la base de datos
 
 // Obtener el usuario ingresado
-$usuarioingresado = $_SESSION['nombredelusuario']; // Cambiado de 'usuarioingresando' a 'nombredelusuario'
+$usuarioingresado = $_SESSION['nombredelusuario']; 
+
 
 // Verificar si el usuario está autenticado
 if (!isset($usuarioingresado)) {
@@ -38,6 +41,10 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 ?>
+
+
+
+
 
 <!-- Aquí empieza el menú de opciones -->
 <?php include("menu.php");

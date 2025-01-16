@@ -169,8 +169,12 @@ include('menu-retroceder.php');
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="text-center">Otros datos importantes</h2>
-                                
                           
+                                <div class="form-group  mt-3 mb-3">
+                                    <label for="">fecha_nacimiento</label>
+                          <input type="date" class="form-control" name="fecha_nacimiento" id="">
+                                </d-iv>
+
                                 <label for="">Posee en su grupo familiar alguien con discapacidad</label>
                                 <div class="form-check">
   <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">

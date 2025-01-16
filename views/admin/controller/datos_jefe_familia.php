@@ -20,6 +20,7 @@ if ($conn->connect_error) {
 }
 
 // Verificar si el formulario ha sido enviado
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Recoger y limpiar los datos del formulario
     $primer_nombre = trim($_POST['primer_nombre']);
