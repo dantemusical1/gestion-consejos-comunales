@@ -39,6 +39,7 @@ include('menu_retroceso.php');
 
 
 // Conexión a la base de datos 
+/*
 $servername = "localhost"; 
 $username = "root"; 
 $password = ""; 
@@ -50,6 +51,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
+
+
+*/
+
+include('../../../config/conexion.php');
 // Verificar conexión
 
 
@@ -102,18 +108,7 @@ $conn->close();
                                <?php
 
 // Conexión a la base de datos
-$host = 'localhost'; // Cambia esto si tu base de datos está en otro servidor
-$usuario = 'root'; // Cambia esto por tu usuario de base de datos
-$contraseña = ''; // Cambia esto por tu contraseña de base de datos
-$base_datos = 'consejos_comunales'; // Cambia esto por el nombre de tu base de datos
-
-// Crear conexión
-$conn = new mysqli($host, $usuario, $contraseña, $base_datos);
-
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+include('../../../config/conexion.php');
 
 // Consulta para obtener los jefes de familia
 $sql = "SELECT id, primer_nombre,`segundo_nombre`,`primer_apellido`,`segundo_apellido` FROM jefes_familia";

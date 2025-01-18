@@ -95,3 +95,25 @@ function togglePasswordVisibility() {
     }
 
 }
+
+
+function validarFormulario(event) {
+
+    const emailInput = document.getElementById('correo');
+
+    const email = emailInput.value;
+
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular para validar el formato del correo
+
+
+    if (!regex.test(email)) {
+
+        event.preventDefault(); // Evita el envío del formulario
+
+        alert('Por favor, ingresa un correo electrónico válido.');
+
+        emailInput.focus();
+
+    }
+
+}

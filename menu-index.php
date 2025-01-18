@@ -22,7 +22,14 @@
         <li class="nav-item">
           <a class="nav-link" href="info_comunidad.php"> <i class="bi bi-houses-fill"></i> Informacion Comunidad</a>
         </li>
-       <!-- 
+       
+       
+        <li class="nav-item">
+          <a class="nav-link" href="views/resgitrar_usuario.php"><i class="bi bi-bug-fill"></i> Registro de Usuario</a>
+        </li>
+       
+        <!-- 
+
        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Informacion Adicional

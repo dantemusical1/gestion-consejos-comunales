@@ -1,9 +1,8 @@
-
 <?php
 $host='localhost';
 $username='root';
 $password='';
-$dbname='empresa';
+$dbname='consejos_comunales';
 
 $conn = new mysqli("$host","$username","$password","$dbname");
 	

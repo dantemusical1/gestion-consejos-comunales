@@ -1,1 +1,0 @@
-alert("Su carga familiar ha sido creada correctamente")
