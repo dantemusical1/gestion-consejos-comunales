@@ -25,7 +25,8 @@ include('menu_retroceso.php');
                         <div class="card-body pt-5">
           
                             <!--Aqui empieza el formulario-->
-                            <form action="controller/login.php" method="post">
+                            <form action="controll
+                            er/login.php" method="post">
     <div class="mb-3">
         <div class="form-group">
             <label for="primer_nombre">Primer nombre del Usuario <i class="bi bi-person-circle"></i></label>
