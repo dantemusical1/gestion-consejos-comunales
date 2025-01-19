@@ -24,7 +24,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="historial_entregas_clap.php"><i class="bi bi-box-seam"></i> De entregas de clap</a></li>
             <li><a class="dropdown-item" href="historial_entregas_cilindros_gas.php"><i class="bi bi-fire"></i> De entregas de gas</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+       
           </ul>
         </li>
       </ul>

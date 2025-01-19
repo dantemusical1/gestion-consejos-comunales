@@ -11,7 +11,7 @@
 </head>
 <body>
 <?php
-include('menu_retroceso.php');
+include('menu-retroceder.php');
 ?>
     <div class="container">
         <div class="row justify-content-center pt-1 mt-5">
@@ -21,9 +21,11 @@ include('menu_retroceso.php');
                         <h5 class="text-center card-title">Actualización de Contraseña</h5>
                     </div>
                     <div class="card-body pt-5">
+
                         <!-- Aquí empieza el formulario -->
                         <form action="../controller/actualizar_contrasena.php" method="post">
-                            <div class="mb-3">
+                        
+                        <div class="mb-3">
                                 <label for="nueva_contrasena">Nueva Contraseña <i class="bi bi-key-fill"></i></label>
                                 <input type="password" class="form-control" name="nueva_contrasena" id="nueva_contrasena" placeholder="Nueva Contraseña" required autocomplete="off">
                                 <div class="invalid-feedback">

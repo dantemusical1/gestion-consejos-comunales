@@ -37,41 +37,99 @@ include('../Objetos/Familia.php');
                 <h2><strong><?php echo $jefeFamilia->getNombreCompleto(); ?></strong></h2> <!-- Nombre del jefe de familia -->
 
                 <h3>Miembros de la familia</h3>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nombre Completo</th>
-                            <th>Cédula</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($miembrosFamilia as $miembro): ?>
-                            <tr>
-                                <td><?php echo $miembro->getNombreCompleto(); ?></td>
-                                <td><?php echo $miembro->getCedula(); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <?php
+// Conexión a la base de datos
+include('../../../config/conexion.php');
 
-                <h3>Cargas familiares</h3>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Nombre Completo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($cargasFamiliares as $carga): ?>
-                            <tr>
-                                <td><?php echo $carga->getNombreCompleto(); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+// Inicializar la paginación
+$limit = 10; // Número de registros por página
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Obtener el número de página actual
+$offset = ($page - 1) * $limit; // Calcular el desplazamiento
+
+// Consulta para obtener el total de registros de jefes de familia
+$totalQuery = "SELECT COUNT(*) as total FROM jefes_familia";
+$totalResult = $conn->query($totalQuery);
+$totalRow = $totalResult->fetch_assoc();
+$totalRecords = $totalRow['total'];
+$totalPages = ceil($totalRecords / $limit); // Calcular el número total de páginas
+
+// Consulta para obtener los registros de jefes de familia con paginación
+$query = "SELECT primer_nombre, segundo_nombre, primer_apellido, segundo_apellido, nacionalidad, cedula, direccion, nro_casa, email, telefono FROM jefes_familia LIMIT $limit OFFSET $offset";
+
+$result = $conn->query($query);
+
+// Mostrar los resultados en una tabla
+echo '<div class="container mt-5">';
+echo '<h2>Jefes de Familia</h2>';
+
+// Campo de búsqueda
+echo '<div class="mb-3">';
+echo '<input type="text" id="searchInput" class="form-control" placeholder="Buscar...">';
+echo '<button id="searchButton" class="btn btn-primary mt-2">Buscar</button>';
+echo '</div>';
+
+echo '<table id="jefesTable" class="table table-bordered table-striped table-hover">';
+echo '<thead>';
+echo '<tr class="table-primary">';
+echo '<th>Primer Nombre</th>';
+echo '<th>Segundo Nombre</th>';
+echo '<th>Primer Apellido</th>';
+echo '<th>Segundo Apellido</th>';
+echo '<th>Nacionalidad</th>';
+echo '<th>Cédula</th>';
+echo '<th>Dirección</th>';
+echo '<th>Número de Casa</th>';
+echo '<th>Email</th>';
+echo '<th>Teléfono</th>';
+echo '</tr>';
+echo '</thead>';
+echo '<tbody>';
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        echo '<tr>';
+        echo '<td>' . htmlspecialchars($row['primer_nombre']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['segundo_nombre']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['primer_apellido']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['segundo_apellido']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['nacionalidad']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['cedula']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['direccion']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['nro_casa']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['email']) . '</td>';
+        echo '<td>' . htmlspecialchars($row['telefono']) . '</td>';
+        echo '</tr>';
+    }
+} else {
+    echo '<tr><td colspan="10">No se encontraron registros.</td></tr>';
+}
+
+echo '</tbody>';
+echo '</table>';
+
+// Paginación
+echo '<nav aria-label="Page navigation">';
+echo '<ul class="pagination justify-content-center">';
+if ($page > 1) {
+    echo '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '">Anterior</a></li>';
+}
+for ($i = 1; $i <= $totalPages; $i++) {
+    echo '<li class="page-item' . ($i == $page ? ' active' : '') . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+}
+if ($page < $totalPages) {
+    echo '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '">Siguiente</a></li>';
+}
+echo '</ul>';
+echo '</nav>';
+
+echo '</div>'; // Cerrar contenedor
+
+// Cerrar la conexión
+$conn->close();
+?>
+
+<!-- Incluir el script de búsqueda -->
+<script src="buscarJefes.js"></script>
 
     <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>

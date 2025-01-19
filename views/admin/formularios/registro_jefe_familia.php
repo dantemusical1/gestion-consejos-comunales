@@ -12,7 +12,6 @@ include('../../../config/conexion.php')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css"> <!-- Enlace al archivo CSS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <!--Aqui inicia los modulos-->
     <link rel="stylesheet" href="../../../node_modules/bootstrap-icons/font/bootstrap-icons.css">
@@ -114,7 +113,8 @@ include('menu-retroceder.php');
         <div class="carousel-item" style="background-image: url('img/slide_2.jpg');">
             <div class="container">
                 <div class="row justify-content-center align-items-center" style="height: 100%;">
-                    <div class="col-md-6">
+                    
+                <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="text-center">Datos de hubicacion y contacto</h2>

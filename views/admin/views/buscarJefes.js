@@ -1,7 +1,7 @@
-// buscarMiembros.js
-function buscarMiembros() {
+// buscarJefes.js
+function buscarJefes() {
     var input = document.getElementById('searchInput').value.toLowerCase();
-    var rows = document.querySelectorAll('#miembrosTable tbody tr');
+    var rows = document.querySelectorAll('#jefesTable tbody tr');
 
     rows.forEach(function(row) {
         var cells = row.getElementsByTagName('td');
@@ -23,11 +23,11 @@ function buscarMiembros() {
 }
 
 // Evento para el botón de búsqueda
-document.getElementById('searchButton').addEventListener('click', buscarMiembros);
+document.getElementById('searchButton').addEventListener('click', buscarJefes);
 
 // Evento para el campo de entrada (presionar "Enter")
 document.getElementById('searchInput').addEventListener('keyup', function(event) {
     if (event.key === 'Enter') {
-        buscarMiembros();
+        buscarJefes();
     }
 });
