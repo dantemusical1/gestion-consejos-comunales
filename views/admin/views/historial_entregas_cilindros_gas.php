@@ -7,6 +7,7 @@ include('../Objetos/Persona.php');
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" href="../../../asset/logoclap.jpg" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css">
@@ -38,20 +39,6 @@ echo '<a href="#" class="btn btn-success" onclick="confirmarGeneracion(); return
 </div>
 </div>
 
-<?php
-
-// Simulación de la recuperación de miembros desde la base de datos
-// Aquí deberías implementar la lógica para obtener los miembros desde la base de datos
-$miembro1 = new MiembroConsejoComunal('1980-01-01', '12345678', 'Masculino', '12-10', 'Juan', 'Pérez', 'Presidente');
-$miembro2 = new MiembroConsejoComunal('1990-05-15', '87654321', 'Femenino', '12-23', 'María', 'Gómez', 'Desarrollo Comunitario');
-
-// Crear entregas de CLAP
-$entrega1 = new Clap($miembro1, '12-10', '2023-10-01');
-$entrega2 = new Clap($miembro2, '12-23', '2023-10-15');
-
-// Almacenar las entregas en un array
-$entregas = [$entrega1, $entrega2];
-?>
 
 <?php
 // Conexión a la base de datos
@@ -85,6 +72,7 @@ echo '<th>Fecha de Entrega</th>';
 echo '<th>Número de Casa</th>';
 echo '<th>Detalles</th>';
 echo '<th>Tipo</th>';
+echo '<th>Acciones</th>'; // Nueva columna para acciones
 echo '</tr>';
 echo '</thead>';
 echo '<tbody>';
@@ -107,14 +95,31 @@ if ($result->num_rows > 0) {
         echo '<td>' . htmlspecialchars($row['nro_casa']) . '</td>';
         echo '<td>' . htmlspecialchars($row['detalles']) . '</td>';
         echo '<td>' . htmlspecialchars($row['tipo']) . '</td>';
+        
+        // Botones de modificar y eliminar
+        echo '<td>';
+        // Botón para modificar
+        echo '<form action="controller/modificar_entrega_gas.php" method="post" style="display:inline;">';
+        echo '<input type="hidden" name="id_entrega" value="' . htmlspecialchars($row['id_entrega']) . '">';
+        echo '<button type="submit" class="btn btn-warning btn-sm"><i class="bi bi-journal"></i></button>';
+        echo '</form>';
+        
+        // Botón para eliminar
+        echo '<form action="controller/eliminar_entrega_gas.php" method="post" style="display:inline;">';
+        echo '<input type="hidden" name="id_entrega" value="' . htmlspecialchars($row['id_entrega']) . '">';
+        echo '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este registro?\');"><i class="bi bi-trash-fill"></i></button>';
+        echo '</form>';
+        echo '</td>';
+        
         echo '</tr>';
     }
 } else {
-    echo '<tr><td colspan="5">No se encontraron registros.</td></tr>';
+    echo '<tr><td colspan="6">No se encontraron registros.</td></tr>'; // Cambiar a 6 para incluir la columna de acciones
 }
 
 echo '</tbody>';
 echo '</table>';
+echo '</div>';
 
 // Paginación
 echo '<nav aria-label="Page navigation">';
@@ -131,7 +136,7 @@ if ($page < $totalPages) {
 echo '</ul>';
 echo '</nav>';
 
-echo '</div>'; // Cerrar contenedor
+echo '</div>'; 
 
 // Cerrar la conexión
 $conn->close();
@@ -141,6 +146,5 @@ $conn->close();
 </div>
 <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 <script src="alert_entregas_gas_txt.js"></script>
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>-->
 </body>
 </html>

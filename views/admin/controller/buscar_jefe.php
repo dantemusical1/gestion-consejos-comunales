@@ -1,17 +1,6 @@
 <?php
 // Configuración de la base de datos
-$host = "localhost"; // Cambia si es necesario
-$username = "root"; // Cambia si es necesario
-$password = ""; // Cambia si es necesario
-$database = "nombre_de_tu_base_de_datos"; // Cambia por el nombre de tu base de datos
-
-// Crear conexión
-$conn = new mysqli($host, $username, $password, $database);
-
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+include('../../../config/conexion.php');
 
 // Obtener la cédula del jefe de familia desde la solicitud POST
 $cedula = $_POST['cedula'];

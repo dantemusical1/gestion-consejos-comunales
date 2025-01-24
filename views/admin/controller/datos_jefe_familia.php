@@ -7,17 +7,8 @@ $nacionalidad = $cedula = $direccion = $nro_casa = $email = $telefono = "";
 $errores = [];
 
 // Conexión a la base de datos
-$servername = "localhost"; // Cambia esto si es necesario
-$username = "root"; // Cambia esto por tu usuario de MySQL
-$password = ""; /
-$dbname = "consejos_comunales"; // Cambia esto por el nombre de tu base de datos
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+include('../../../config/conexion.php');
 
 // Verificar si el formulario ha sido enviado
 

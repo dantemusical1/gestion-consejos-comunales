@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- Aquí inicia los módulos globales -->
     <link rel="stylesheet" href="../../../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css">
     <title>Actualización de Contraseña</title>
 </head>
 <body>
-<?php
-include('menu_retroceso.php');
-?>
+    <?php
+    include('menu_retroceso.php');
+                ?>
     <div class="container">
         <div class="row justify-content-center pt-1 mt-5">
             <div class="col-md-5 formulario">
@@ -23,90 +22,37 @@ include('menu_retroceso.php');
                     <div class="card-body pt-5">
                         <!-- Aquí empieza el formulario -->
                         <form action="../controller/actualizar_contrasena.php" method="post">
-                            
-                        <?php
-
-              //  INSERT INTO `historial_entregas_cilindros` (`id_entrega`, `id_miembro`, `id_jefe_familia`, `fecha_entrega`, `nro_casa`, `detalles`, `id_cilindro`) VALUES (NULL, '1', '5', '2025-01-12', '12', 'Entrega de practica 1', '2');
-                        ?>
                         <div class="mb-3">
                         <label for="">responsable de la entrega</label>
-
-                    
-                                       
                                         <?php
-
-//include('../controller/conexion.php');
-
-
-// Conexión a la base de datos 
-/*
-$servername = "localhost"; 
-$username = "root"; 
-$password = ""; 
-$dbname = "consejos_comunales"; 
-// Crear una conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Error de conexión: " . $conn->connect_error);
-}
+                        //inclusion de conexion a la base de datos
+                        include('../../../config/conexion.php');
 
 
-*/
+                // Consulta para obtener los miembros del consejo comunal
 
-include('../../../config/conexion.php');
-// Verificar conexión
+            $sql = "SELECT id_miembro, primer_nombre, segundo_nombre FROM miembro_consejo_comunal";
+            $result = $conn->query($sql);
 
-
-if ($conn->connect_error) {
-
-    die("Conexión fallida: " . $conn->connect_error);
-
-}
-
-
-// Consulta para obtener los miembros del consejo comunal
-
-$sql = "SELECT id_miembro, primer_nombre, segundo_nombre FROM miembro_consejo_comunal";
-
-$result = $conn->query($sql);
-
-
-// Generar el elemento <select>
-
-if ($result->num_rows > 0) {
-
+        // Generar el elemento <select>
+        if ($result->num_rows > 0) {
     echo '<select class="form-select" aria-label="Default select example">';
-
     while ($row = $result->fetch_assoc()) {
-
         echo '<option value="' . $row['id_miembro'] . '">' . $row['primer_nombre'] .' '.$row['segundo_nombre'] .'</option>';
-
-    }
-
+     }
     echo '</select>';
-
             } else {
-
     echo 'No hay miembros disponibles.';
-
 }
 
 
 // Cerrar conexión
-
-$conn->close();
-                                        ?>
+            $conn->close();
+                     ?>
                                
-                                    
-              
-
                             </div>
-
                             <div class="mb-3">
                                <?php
-
 // Conexión a la base de datos
 include('../../../config/conexion.php');
 
@@ -123,46 +69,28 @@ if ($result->num_rows > 0) {
     echo '</select>';
 } else {
     echo 'No hay jefes de familia disponibles.';
-}
+        }
 
 // Cerrar conexión
 $conn->close();
-
-
                                ?>
-                            </div>
 
 
-             
-                                    <label for="Entrega_gas">Fecha de entrega</label>
-                                    <input type="date" id="nacimiento"  name="nacimiento"  class="form-control">
+                            </div>             
+            <label for="Entrega_gas">Fecha de entrega</label>
+                <input type="date" id="entrega_gas"  name="entrega_gas"  class="form-control">
                                 
 
+            <label for="nro_casa">Nro de casa</label>
+                <input type="text" name="nro_casa"class="form-group" id="">
+
+
+            <label for="detalles">Detalles de entrega</label>
+                <input type="text" name="detalles" class="form-group" id="">
 
 <?php
-
-//nro_casa`, `detalles`, `id_cilindro`
-?>
-<label for="nro_casa">Nro de casa</label>
-
-<input type="text" name="nro_casa"class="form-group" id="">
-
-
-
-<label for="detalles">Detalles de entrega</label>
-
-<input type="text" name="detalles" class="form-group" id="">
-
-<?php
-
 // Conexión a la base de datos
-$host = 'localhost'; // Cambia esto si tu base de datos está en otro servidor
-$usuario = 'root'; // Cambia esto por tu usuario de base de datos
-$contraseña = ''; // Cambia esto por tu contraseña de base de datos
-$base_datos = 'consejos_comunales'; // Cambia esto por el nombre de tu base de datos
-
-// Crear conexión
-$conn = new mysqli($host, $usuario, $contraseña, $base_datos);
+include('../../../config/conexion.php');
 
 // Verificar conexión
 if ($conn->connect_error) {
@@ -183,14 +111,10 @@ if ($result->num_rows > 0) {
 } else {
     echo 'No hay jefes de familia disponibles.';
 }
-
 // Cerrar conexión
 $conn->close();
 
-
                                ?>
-
-
                             <div class="form-group mx-4 pt-4 pb-4">
                                 <button type="submit" class="btn btn-primary form-control" name="btnActualizar">Actualizar Contraseña</button>
                             </div>

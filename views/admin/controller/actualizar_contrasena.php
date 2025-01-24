@@ -1,18 +1,6 @@
 <?php
 // Conexión a la base de datos
-$host = "localhost";
-$user_db = "root";
-$password = "";
-$name_db = "empresa";
-
-// Crear conexión
-$conn = new mysqli($host, $user_db, $password, $name_db);
-
-// Verificar conexión
-if ($conn->connect_errno) {
-    echo "Fallo al conectar a MySQL: (" . $conn->connect_errno . ") " . $conn->connect_error;
-    exit(); 
-}
+include('../../../config/conexion.php');
 
 session_start();
 

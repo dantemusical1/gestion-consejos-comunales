@@ -1,19 +1,7 @@
 <?php
 // actualizar_redes.php
 
-// Conexión a la base de datos
-$servername = "localhost"; 
-$username = "tu_usuario"; 
-$password = "tu_contraseña"; 
-$dbname = "tu_base_de_datos"; 
-
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+include('../../../config/conexion.php');
 
 // Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn_actualiza_redes'])) {
