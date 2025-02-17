@@ -103,7 +103,5 @@ include('menu_retroceso.php');
 <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 <script src="controller/usuario.js"></script>
 
-
-
 </body>
 </html>

@@ -20,19 +20,16 @@
                         <li><a class="dropdown-item" href="formularios/registro_jefe_familia.php">Registro jefe familiar</a></li>
                         <li><a class="dropdown-item" href="formularios/actualizar_jefe_familiar.php">Actualizar jefe familiar</a></li>
                         <li><a class="dropdown-item" href="formularios/form_registro_carga_familiar.php">Agregar carga familiar</a></li>
-                        <li><a class="dropdown-item" href="formularios/form_registro_carga_familiar.php">Agregar carga familiar</a></li>
-                        <li><a class="dropdown-item" href="formularios/form_registro_nuevo_familiar.php">Agregar carga familiar</a></li>
+                        <li><a class="dropdown-item" href="formularios/form_registro_nuevo_familiar.php">Agregar Nuevo familiar</a></li>
+                        <li><a class="dropdown-item" href="formularios/form_registro_nuevo_familiar.php"><i class="bi bi-fire"></i> Entrega de gas</a></li>
+                        <li><a class="dropdown-item" href="formularios/form_registro_entrega_clap.php"><i class="bi bi-box-seam"></i>Entrega CLAP</a></li>
 
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="formularios/form_registrar_redes.php">Registrar redes sociales</a></li>
                         <li><a class="dropdown-item" href="formularios/form_actualizar_redes.php">Actualizar redes sociales</a></li>
                     </ul>
                 </li>
-                <!--
-                <li class="nav-item">
-                    <a class="nav-link" href="">Vistas y descargas</a>
-                </li>
-                -->
+              
             </ul>
            
         </div>

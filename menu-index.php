@@ -22,12 +22,8 @@
         <li class="nav-item">
           <a class="nav-link" href="info_comunidad.php"> <i class="bi bi-houses-fill"></i> Informacion Comunidad</a>
         </li>
-       
-       
-        <li class="nav-item">
-          <a class="nav-link" href="views/resgitrar_usuario.php"><i class="bi bi-bug-fill"></i> Registro de Usuario</a>
-        </li>
-       
+        </ul>   
+      
         <!-- 
 
        <li class="nav-item dropdown">
@@ -45,7 +41,7 @@
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
         </li>
-      </ul>
+    
       -->
     </div>
   </div>

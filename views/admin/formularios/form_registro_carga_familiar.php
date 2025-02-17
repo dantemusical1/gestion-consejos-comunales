@@ -17,7 +17,7 @@ include('menu-retroceder.php');
         <div class="col-md-5 formulario">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="text-center card-title">Actualización de Contraseña</h5>
+                    <h5 class="text-center card-title">Registro de carga familiar</h5>
                 </div>
                 <div class="card-body pt-5">
                     <!-- Aquí empieza el formulario -->
@@ -27,7 +27,7 @@ include('menu-retroceder.php');
                             <select name="jefe_familia_id" id="jefeFamilia" class="form-select" aria-label="Seleccione Jefe de Familia">
                                 <option selected disabled>Seleccione un jefe de familia</option>
                                 <?php
-                                include("../conexion.php");
+                                include("../../../config/conexion.php");
 
                                 $sql = "SELECT * FROM jefes_familia";
                                 $result = mysqli_query($conn, $sql);
@@ -47,18 +47,18 @@ include('menu-retroceder.php');
                             <label for="nombreCargaFamiliar" class="form-label">Nombre de la Carga Familiar</label>
 
                             <div class="input-group">
-  <input type="text" name="primer_nombre_carga_familia" aria-label="First name" class="form-control">
-  <input type="text" name="segundo_nombre_carga_familia" aria-label="Last name" class="form-control">
-</div>
+                        <input type="text" name="primer_nombre_carga_familia" aria-label="First name" placeholder="Primer Nombre" class="form-control">
+                        <input type="text" name="segundo_nombre_carga_familia" aria-label="Last name" placeholder="Segundo Nombre"   class="form-control">
+                        </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="nombreCargaFamiliar" class="form-label">Apellidos de la Carga Familiar</label>
 
                             <div class="input-group">
-  <input type="text" name="primer_apellido_carga_familia" aria-label="First name" class="form-control">
-  <input type="text" name="segundo_apellido_carga_familia" aria-label="Last name" class="form-control">
-</div>
+                        <input type="text" name="primer_apellido_carga_familia" aria-label="First name" class="form-control" placeholder="Primer Apellido">
+                        <input type="text" name="segundo_apellido_carga_familia" aria-label="Last name" class="form-control" placeholder="Segundo Apellido">
+                            </div>
                         </div>
 
 
