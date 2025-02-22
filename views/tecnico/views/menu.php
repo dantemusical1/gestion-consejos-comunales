@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg" style="background-color:rgb(216, 14, 243);">
+<nav class="navbar navbar-expand-lg" style="background-color:rgb(14, 197, 243);">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -10,7 +10,10 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#">Lista de administradores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Cambiar clave</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>

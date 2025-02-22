@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg" style="background-color:rgb(216, 14, 243);">
+<nav class="navbar navbar-expand-lg" style="background-color:rgb(14, 216, 243);">
   <div class="container-fluid">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -10,10 +10,16 @@
           <a class="nav-link active" aria-current="page" href="views/index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="views/administradores.php">Lista de administradores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link" href="views/Lista_bakups.php"><i class="bi bi-filetype-sql"></i> Respaldos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="bi bi-key-fill"></i> Cambiar clave</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="bi bi-person-fill-add"></i> Registro de usuarios</a>
         </li>
       </ul>
     </div>
