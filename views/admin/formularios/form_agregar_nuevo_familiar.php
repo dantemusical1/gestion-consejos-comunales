@@ -10,6 +10,9 @@
 <body>
 <?php
 include('menu-retroceder.php');
+
+// Obtener el ID del jefe de familia desde la URL
+$jefe_familia_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 ?>
 
 <div class="container">
@@ -24,11 +27,10 @@ include('menu-retroceder.php');
                     <form action="controller/registrar_nuevo_familiar.php" method="post">
                         <div class="mb-3">
                             <label for="jefeFamilia" class="form-label">Seleccione Jefe de Familia</label>
-                            <select name="jefe_familia_id" id="jefeFamilia" class="form-select" aria-label="Seleccione Jefe de Familia" required>
+                            <select name="jefe_familia_id" id="jefeFamilia" class="form-select" aria-label="Seleccione Jefe de Familia" required disabled>
                                 <option selected disabled>Seleccione un jefe de familia</option>
                                 <?php
                                 include("../../../config/conexion.php");
-
                                 $sql = "SELECT * FROM jefes_familia";
                                 $result = mysqli_query($conn, $sql);
                                 while ($row = mysqli_fetch_array($result)) {
@@ -38,7 +40,9 @@ include('menu-retroceder.php');
                                     $primer_apellido = $row['primer_apellido'];
 
                                     // Mostrar el miembro en el menú desplegable
-                                    echo '<option value="' . $id . '">' . $primer_nombre . ' ' . $segundo_nombre . ' ' . $primer_apellido . '</option>';
+                                    // Marcar como seleccionado si coincide con el ID del jefe de familia
+                                    $selected = ($id == $jefe_familia_id) ? 'selected' : '';
+                                    echo '<option value="' . $id . '" ' . $selected . '>' . $primer_nombre . ' ' . $segundo_nombre . ' ' . $primer_apellido . '</option>';
                                 }
                                 ?>
                             </select>
@@ -71,6 +75,10 @@ include('menu-retroceder.php');
         </div>
     </div>
 </div>
+
+        
+<script src="../../../node_modules/jquery/dist/jquery.js"></script>
 <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="../../../node_modules/@popperjs/core/dist/umd/popper.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 18-01-2025 a las 18:50:22
+-- Tiempo de generación: 02-03-2025 a las 16:47:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -24,6 +24,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `aldeas`
+--
+
+CREATE TABLE `aldeas` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `municipio_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `cargas_familiares`
 --
 
@@ -33,19 +45,9 @@ CREATE TABLE `cargas_familiares` (
   `primer_nombre` varchar(50) NOT NULL,
   `segundo_nombre` varchar(50) DEFAULT NULL,
   `primer_apellido` varchar(50) NOT NULL,
-  `segundo_apellido` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `comunas`
---
-
-CREATE TABLE `comunas` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `municipio_id` int(11) DEFAULT NULL
+  `segundo_apellido` varchar(50) DEFAULT NULL,
+  `fecha_de_nacimiento` date NOT NULL,
+  `genero` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -71,6 +73,13 @@ CREATE TABLE `estados` (
   `nombre` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `estados`
+--
+
+INSERT INTO `estados` (`id`, `nombre`) VALUES
+(1, 'Merida');
+
 -- --------------------------------------------------------
 
 --
@@ -84,6 +93,7 @@ CREATE TABLE `historial_entregas_cilindros` (
   `fecha_entrega` date NOT NULL,
   `nro_casa` varchar(10) NOT NULL,
   `detalles` varchar(255) DEFAULT NULL,
+  `precio` decimal(10,2) NOT NULL,
   `id_cilindro` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -91,8 +101,9 @@ CREATE TABLE `historial_entregas_cilindros` (
 -- Volcado de datos para la tabla `historial_entregas_cilindros`
 --
 
-INSERT INTO `historial_entregas_cilindros` (`id_entrega`, `id_miembro`, `id_jefe_familia`, `fecha_entrega`, `nro_casa`, `detalles`, `id_cilindro`) VALUES
-(97, 1, 5, '2025-01-12', '12', 'Entrega de practica 1', 2);
+INSERT INTO `historial_entregas_cilindros` (`id_entrega`, `id_miembro`, `id_jefe_familia`, `fecha_entrega`, `nro_casa`, `detalles`, `precio`, `id_cilindro`) VALUES
+(98, 2, 2, '2025-02-13', '1234', 'detalles', 12.00, 2),
+(99, 4, 5, '2025-02-25', '3456', 'entrega ', 44.00, 3);
 
 -- --------------------------------------------------------
 
@@ -114,7 +125,6 @@ CREATE TABLE `historial_entregas_clap` (
 --
 
 INSERT INTO `historial_entregas_clap` (`id_entrega`, `id_miembro`, `id_jefe_familia`, `fecha_entrega`, `nro_casa`, `detalles`) VALUES
-(11, 1, 1, '2025-01-01', 'A1', 'Entrega de CLAP Enero'),
 (12, 2, 1, '2025-02-01', 'A1', 'Entrega de CLAP Febrero'),
 (13, 3, 1, '2025-03-01', 'A1', 'Entrega de CLAP Marzo'),
 (14, 4, 1, '2025-04-01', 'A1', 'Entrega de CLAP Abril'),
@@ -123,7 +133,15 @@ INSERT INTO `historial_entregas_clap` (`id_entrega`, `id_miembro`, `id_jefe_fami
 (17, 7, 2, '2025-01-01', 'B2', 'Entrega de CLAP Enero'),
 (18, 8, 2, '2025-02-01', 'B2', 'Entrega de CLAP Febrero'),
 (19, 9, 2, '2025-03-01', 'B2', 'Entrega de CLAP Marzo'),
-(20, 10, 2, '2025-04-01', 'B2', 'Entrega de CLAP Abril');
+(20, 10, 2, '2025-04-01', 'B2', 'Entrega de CLAP Abril'),
+(21, 4, 3, '2025-02-25', 'C3', 'bolsa'),
+(22, 3, 1, '2025-02-24', 'A1', 'bolsa'),
+(23, 3, 1, '2025-02-24', 'A1', 'bolsa'),
+(24, 3, 1, '2025-02-24', 'A1', 'bolsa'),
+(25, 3, 1, '2025-02-24', 'A1', 'bolsa'),
+(26, 3, 1, '2025-02-24', 'A1', 'bolsa'),
+(27, 3, 1, '2025-02-24', 'A1', 'bolsa'),
+(28, 2, 1, '2025-02-25', 'A1', 'bolsa');
 
 -- --------------------------------------------------------
 
@@ -139,10 +157,12 @@ CREATE TABLE `jefes_familia` (
   `segundo_apellido` varchar(50) DEFAULT NULL,
   `nacionalidad` enum('V','E') NOT NULL,
   `cedula` varchar(11) NOT NULL,
+  `genero` tinytext NOT NULL,
   `direccion` varchar(255) NOT NULL,
   `nro_casa` varchar(10) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `telefono` varchar(15) DEFAULT NULL,
+  `estado_de_discapacidad` tinytext NOT NULL,
   `id_red` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -150,13 +170,15 @@ CREATE TABLE `jefes_familia` (
 -- Volcado de datos para la tabla `jefes_familia`
 --
 
-INSERT INTO `jefes_familia` (`id`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `nacionalidad`, `cedula`, `direccion`, `nro_casa`, `email`, `telefono`, `id_red`) VALUES
-(1, 'Ana', 'Maria', 'Perez', 'Gomez', 'V', '12345678', 'Calle 1', 'A1', 'ana.perez@mail.com', '04121234567', 1),
-(2, 'Luis', 'Fernando', 'Lopez', 'Diaz', 'V', '87654321', 'Calle 2', 'B2', 'luis.lopez@mail.com', '04129876543', 2),
-(3, 'Carla', 'Isabel', 'Martinez', 'Ruiz', 'V', '23456789', 'Calle 3', 'C3', 'carla.martinez@mail.com', '04122345678', 3),
-(4, 'Jorge', 'Andres', 'Rodriguez', 'Torres', 'V', '98765432', 'Calle 4', 'D4', 'jorge.rodriguez@mail.com', '04129876544', 1),
-(5, 'Mariana', 'Victoria', 'Sanchez', 'Ramirez', 'V', '34567890', 'Calle 5', 'E5', 'mariana.sanchez@mail.com', '04123456789', 2),
-(6, 'Pedro', 'Alberto', 'Mendoza', 'Garcia', 'V', '45678901', 'Calle 6', 'F6', 'pedro.mendoza@mail.com', '04124567890', 3);
+INSERT INTO `jefes_familia` (`id`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `nacionalidad`, `cedula`, `genero`, `direccion`, `nro_casa`, `email`, `telefono`, `estado_de_discapacidad`, `id_red`) VALUES
+(1, 'Ana', 'Maria', 'Perez', 'Gomez', 'V', '12345678', '', 'Calle 1', 'A1', 'ana.perez@mail.com', '04121234567', '', NULL),
+(2, 'Luis', 'Fernando', 'Lopez', 'Diaz', 'V', '87654321', '', 'Calle 2', 'B2', 'luis.lopez@mail.com', '04129876543', '', 2),
+(3, 'Carla', 'Isabel', 'Martinez', 'Ruiz', 'V', '23456789', '', 'Calle 3', 'C3', 'carla.martinez@mail.com', '04122345678', '', 3),
+(4, 'Jorge', 'Andres', 'Rodriguez', 'Torres', 'V', '98765432', '', 'Calle 4', 'D4', 'jorge.rodriguez@mail.com', '04129876544', '', NULL),
+(5, 'Mariana', 'Victoria', 'Sanchez', 'Ramirez', 'V', '34567890', '', 'Calle 5', 'E5', 'mariana.sanchez@mail.com', '04123456789', '', 2),
+(6, 'Pedro', 'Alberto', 'Mendoza', 'Garcia', 'V', '45678901', '', 'Calle 6', 'F6', 'pedro.mendoza@mail.com', '04124567890', '', 3),
+(8, 'Sedric', 'Digori', 'Poter', 'Harry', 'V', '123456789', 'M', 'Mirabel', '1234', 'prueva@gmail.com', '123456789', 'NO', 2),
+(9, 'Beyond', 'Birday', 'Guillermo', 'Carmen', 'V', '2899325', 'M', 'Casa frente al consejo comunal', '321-123', 'deltoro@gmail.com', '02749997325', 'NO', 2);
 
 -- --------------------------------------------------------
 
@@ -183,7 +205,8 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`id`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `correo`, `usu`, `pass`, `pass_plain`, `rol`) VALUES
 (21, 'Jesus', 'Medina', 'Medina', 'Ruz', 'jesuz@gmail.com', '30244875', '$2y$10$3Mdn8wgjUqp.40vOuZLKdO5ziJkrvLbQ0DZzeF3Tu3LTKLF79rzpq', '30244875', 'admin'),
-(22, 'Jesus', 'Carmen', 'Medina ', 'Ruz', 'jesusdelcmedina@gmail.com', '26198748', '$2y$10$U0DQNahdv35xYLUfJqE04.D6hR34BaCBtKThPDjnmIFYm1jc2uU9.', 'medina', 'admin');
+(22, 'Jesus', 'Carmen', 'Medina ', 'Ruz', 'jesusdelcmedina@gmail.com', '26198748', '$2y$10$U0DQNahdv35xYLUfJqE04.D6hR34BaCBtKThPDjnmIFYm1jc2uU9.', 'medina', 'admin'),
+(23, 'Victor', 'Adrian', 'Guillen', 'Ramirez', 'dantemusical1@gmail.com', '27905225', '$2y$10$uqH812.Vck3eIL1y9V7EremE4NpTBKWAhzZ3CQeNpySG0aUp.bhn.', 'dragones1', 'admin');
 
 -- --------------------------------------------------------
 
@@ -241,7 +264,9 @@ INSERT INTO `miembros_familia` (`id`, `id_jefe_familia`, `primer_nombre`, `segun
 (33, 6, 'Diego', 'Alejandro', 'Mendoza', 'Garcia', '51345678'),
 (34, 6, 'Laura', 'Camila', 'Mendoza', 'Garcia', '61345678'),
 (35, 6, 'Luis', 'Fernando', 'Mendoza', 'Garcia', '71345678'),
-(36, 6, 'Ana', 'Maria', 'Mendoza', 'Garcia', '81345678');
+(36, 6, 'Ana', 'Maria', 'Mendoza', 'Garcia', '81345678'),
+(37, 2, 'luis ', 'lalo', 'lopex', 'lopez', '123456789'),
+(38, 2, 'luis ', 'lalo', 'lopex', 'lopez', '123456798');
 
 -- --------------------------------------------------------
 
@@ -260,24 +285,23 @@ CREATE TABLE `miembro_consejo_comunal` (
   `nro_casa` varchar(10) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
   `telefono` varchar(15) DEFAULT NULL,
-  `tipo` enum('jefe_familia','miembro_familia') NOT NULL
+  `cargo` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `miembro_consejo_comunal`
 --
 
-INSERT INTO `miembro_consejo_comunal` (`id_miembro`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `cedula`, `direccion`, `nro_casa`, `email`, `telefono`, `tipo`) VALUES
-(1, 'Ana', 'Maria', 'Perez', 'Gomez', '12345678', 'Calle 1', 'A1', 'ana.perez@mail.com', '04121234567', 'jefe_familia'),
-(2, 'Luis', 'Fernando', 'Lopez', 'Diaz', '87654321', 'Calle 2', 'B2', 'luis.lopez@mail.com', '04129876543', 'jefe_familia'),
-(3, 'Carla', 'Isabel', 'Martinez', 'Ruiz', '23456789', 'Calle 3', 'C3', 'carla.martinez@mail.com', '04122345678', 'jefe_familia'),
-(4, 'Jorge', 'Andres', 'Rodriguez', 'Torres', '98765432', 'Calle 4', 'D4', 'jorge.rodriguez@mail.com', '04129876544', 'jefe_familia'),
-(5, 'Mariana', 'Victoria', 'Sanchez', 'Ramirez', '34567890', 'Calle 5', 'E5', 'mariana.sanchez@mail.com', '04123456789', 'jefe_familia'),
-(6, 'Pedro', 'Alberto', 'Mendoza', 'Garcia', '45678901', 'Calle 6', 'F6', 'pedro.mendoza@mail.com', '04124567890', 'jefe_familia'),
-(7, 'Ana', 'Maria', 'Perez', 'Gomez', '22345678', 'Calle 1', 'A1', 'ana.perez2@mail.com', '04121234568', 'miembro_familia'),
-(8, 'Luis', 'Fernando', 'Lopez', 'Diaz', '27345678', 'Calle 2', 'B2', 'luis.lopez2@mail.com', '04129876545', 'miembro_familia'),
-(9, 'Carla', 'Isabel', 'Martinez', 'Ruiz', '28345678', 'Calle 3', 'C3', 'carla.martinez2@mail.com', '04122345679', 'miembro_familia'),
-(10, 'Jorge', 'Andres', 'Rodriguez', 'Torres', '29345678', 'Calle 4', 'D4', 'jorge.rodriguez2@mail.com', '04129876546', 'miembro_familia');
+INSERT INTO `miembro_consejo_comunal` (`id_miembro`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `cedula`, `direccion`, `nro_casa`, `email`, `telefono`, `cargo`) VALUES
+(2, 'Luis', 'Fernando', 'Lopez', 'Diaz', '87654321', 'Calle 2', 'B2', 'luis.lopez@mail.com', '04129876543', ''),
+(3, 'Carly', 'Isabel', 'Martinez', 'Ruiz', '23456789', 'Calle 3', 'C3', 'carla.martinez@mail.com', '04122345678', 'Vocal'),
+(4, 'Jorge', 'Andres', 'Rodriguez', 'Torres', '98765432', 'Calle 4', 'D4', 'jorge.rodriguez@mail.com', '04129876544', ''),
+(5, 'Mariana', 'Victoria', 'Sanchez', 'Ramirez', '34567890', 'Calle 5', 'E5', 'mariana.sanchez@mail.com', '04123456789', ''),
+(6, 'Pedro', 'Alberto', 'Mendoza', 'Garcia', '45678901', 'Calle 6', 'F6', 'pedro.mendoza@mail.com', '04124567890', ''),
+(7, 'Ana', 'Maria', 'Perez', 'Gomez', '22345678', 'Calle 1', 'A1', 'ana.perez2@mail.com', '04121234568', ''),
+(8, 'Luis', 'Fernando', 'Lopez', 'Diaz', '27345678', 'Calle 2', 'B2', 'luis.lopez2@mail.com', '04129876545', ''),
+(9, 'Carla', 'Isabel', 'Martinez', 'Ruiz', '28345678', 'Calle 3', 'C3', 'carla.martinez2@mail.com', '04122345679', ''),
+(10, 'Jorge', 'Andres', 'Rodriguez', 'Torres', '8234567', 'Calle 4', 'D4', 'jorge.rodriguez2@mail.com', '04129876546', 'Vocal');
 
 -- --------------------------------------------------------
 
@@ -290,6 +314,30 @@ CREATE TABLE `municipios` (
   `nombre` varchar(100) NOT NULL,
   `estado_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `municipios`
+--
+
+INSERT INTO `municipios` (`id`, `nombre`, `estado_id`) VALUES
+(1, 'Mérida', 1),
+(2, 'Alberto Adriani', 1),
+(3, 'Andrés Bello', 1),
+(4, 'Antonio Pinto Salinas', 1),
+(5, 'Campo Elías Delgado', 1),
+(6, 'Cardenal Quintero', 1),
+(7, 'Chiguará', 1),
+(8, 'El Morro', 1),
+(9, 'El Vigía', 1),
+(10, 'José Ramón Yépez', 1),
+(11, 'La Fría', 1),
+(12, 'Mucuchíes', 1),
+(13, 'Mucurubá', 1),
+(14, 'Pueblo Llano', 1),
+(15, 'Rangel', 1),
+(16, 'Santo Domingo', 1),
+(17, 'Tovar', 1),
+(18, 'Zea', 1);
 
 -- --------------------------------------------------------
 
@@ -313,8 +361,7 @@ CREATE TABLE `redes` (
 --
 
 INSERT INTO `redes` (`id_redes`, `Estado`, `Municipio`, `aldea`, `consejo_comunal`, `pag_web`, `facebook`, `whatsapp`) VALUES
-(1, 'Monagas', 'Maturín', 'Aldea 1', 'Consejo Comunal 1', 'http://web1.com', 'facebook.com/cc1', '04121234567'),
-(2, 'Monagas', 'Maturín', 'Aldea 2', 'Consejo Comunal 2', 'http://web2.com', 'facebook.com/cc2', '04129876543'),
+(2, 'Merida', 'Andres Bello', 'Mirabel', 'Consejo Comunal de Mirabel', 'http://web2.com', 'facebook.com/cc2', '04129876543'),
 (3, 'Monagas', 'Maturín', 'Aldea 3', 'Consejo Comunal 3', 'http://web3.com', 'facebook.com/cc3', '04122345678'),
 (4, 'Monagas', 'Maturín', 'Aldea 4', 'Consejo Comunal 4', 'http://web4.com', 'facebook.com/cc4', '04129876544'),
 (5, 'Monagas', 'Maturín', 'Aldea 5', 'Consejo Comunal 5', 'http://web5.com', 'facebook.com/cc5', '04123456789'),
@@ -322,7 +369,7 @@ INSERT INTO `redes` (`id_redes`, `Estado`, `Municipio`, `aldea`, `consejo_comuna
 (7, 'Monagas', 'Maturín', 'Aldea 7', 'Consejo Comunal 7', 'http://web7.com', 'facebook.com/cc7', '04125678901'),
 (8, 'Monagas', 'Maturín', 'Aldea 8', 'Consejo Comunal 8', 'http://web8.com', 'facebook.com/cc8', '04126789012'),
 (9, 'Monagas', 'Maturín', 'Aldea 9', 'Consejo Comunal 9', 'http://web9.com', 'facebook.com/cc9', '04127890123'),
-(10, 'Monagas', 'Maturín', 'Aldea 10', 'Consejo Comunal 10', 'http://web10.com', 'facebook.com/cc10', '04128901234');
+(11, 'MERIDA', 'ANDRES BELLO', 'MIRABEL', 'BELLA VISTA', '', '', '581234567');
 
 -- --------------------------------------------------------
 
@@ -351,18 +398,18 @@ INSERT INTO `tipo_cilindro` (`id_cilindro`, `tipo_cilindro`, `peso_cilindro`) VA
 --
 
 --
+-- Indices de la tabla `aldeas`
+--
+ALTER TABLE `aldeas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `municipio_id` (`municipio_id`);
+
+--
 -- Indices de la tabla `cargas_familiares`
 --
 ALTER TABLE `cargas_familiares`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_jefe_familia` (`id_jefe_familia`);
-
---
--- Indices de la tabla `comunas`
---
-ALTER TABLE `comunas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `municipio_id` (`municipio_id`);
 
 --
 -- Indices de la tabla `consejos_comunales`
@@ -447,15 +494,15 @@ ALTER TABLE `tipo_cilindro`
 --
 
 --
--- AUTO_INCREMENT de la tabla `cargas_familiares`
+-- AUTO_INCREMENT de la tabla `aldeas`
 --
-ALTER TABLE `cargas_familiares`
+ALTER TABLE `aldeas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `comunas`
+-- AUTO_INCREMENT de la tabla `cargas_familiares`
 --
-ALTER TABLE `comunas`
+ALTER TABLE `cargas_familiares`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -468,55 +515,55 @@ ALTER TABLE `consejos_comunales`
 -- AUTO_INCREMENT de la tabla `estados`
 --
 ALTER TABLE `estados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_entregas_cilindros`
 --
 ALTER TABLE `historial_entregas_cilindros`
-  MODIFY `id_entrega` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id_entrega` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_entregas_clap`
 --
 ALTER TABLE `historial_entregas_clap`
-  MODIFY `id_entrega` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_entrega` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `jefes_familia`
 --
 ALTER TABLE `jefes_familia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de la tabla `miembros_familia`
 --
 ALTER TABLE `miembros_familia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `miembro_consejo_comunal`
 --
 ALTER TABLE `miembro_consejo_comunal`
-  MODIFY `id_miembro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_miembro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `municipios`
 --
 ALTER TABLE `municipios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `redes`
 --
 ALTER TABLE `redes`
-  MODIFY `id_redes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_redes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_cilindro`
@@ -529,22 +576,22 @@ ALTER TABLE `tipo_cilindro`
 --
 
 --
+-- Filtros para la tabla `aldeas`
+--
+ALTER TABLE `aldeas`
+  ADD CONSTRAINT `aldeas_ibfk_1` FOREIGN KEY (`municipio_id`) REFERENCES `municipios` (`id`) ON DELETE CASCADE;
+
+--
 -- Filtros para la tabla `cargas_familiares`
 --
 ALTER TABLE `cargas_familiares`
   ADD CONSTRAINT `cargas_familiares_ibfk_1` FOREIGN KEY (`id_jefe_familia`) REFERENCES `jefes_familia` (`id`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `comunas`
---
-ALTER TABLE `comunas`
-  ADD CONSTRAINT `comunas_ibfk_1` FOREIGN KEY (`municipio_id`) REFERENCES `municipios` (`id`) ON DELETE CASCADE;
-
---
 -- Filtros para la tabla `consejos_comunales`
 --
 ALTER TABLE `consejos_comunales`
-  ADD CONSTRAINT `consejos_comunales_ibfk_1` FOREIGN KEY (`comuna_id`) REFERENCES `comunas` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `consejos_comunales_ibfk_1` FOREIGN KEY (`comuna_id`) REFERENCES `aldeas` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `historial_entregas_cilindros`
@@ -560,12 +607,6 @@ ALTER TABLE `historial_entregas_cilindros`
 ALTER TABLE `historial_entregas_clap`
   ADD CONSTRAINT `historial_entregas_clap_ibfk_1` FOREIGN KEY (`id_miembro`) REFERENCES `miembro_consejo_comunal` (`id_miembro`) ON DELETE CASCADE,
   ADD CONSTRAINT `historial_entregas_clap_ibfk_2` FOREIGN KEY (`id_jefe_familia`) REFERENCES `jefes_familia` (`id`) ON DELETE CASCADE;
-
---
--- Filtros para la tabla `jefes_familia`
---
-ALTER TABLE `jefes_familia`
-  ADD CONSTRAINT `jefes_familia_ibfk_1` FOREIGN KEY (`id_red`) REFERENCES `redes` (`id_redes`) ON DELETE SET NULL;
 
 --
 -- Filtros para la tabla `miembros_familia`

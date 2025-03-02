@@ -7,6 +7,8 @@
     <!-- Aquí inicia los módulos globales -->
     <link rel="stylesheet" href="../../../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="shortcut icon" href="../../../asset/logoclap.jpg" />
+
     <title>Actualización de Contraseña</title>
 </head>
 <body>

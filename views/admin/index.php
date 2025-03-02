@@ -49,9 +49,8 @@ $result = $stmt->get_result();
 
 
 <!-- Aquí empieza el menú de opciones -->
-<?php include("menu.php");
-
-
+<?php 
+include("menu.php");
 
 
 // Verificar si se encontraron resultados
@@ -62,10 +61,7 @@ if ($result->num_rows > 0) {
     // Imprimir los campos
     echo "<div class='container'>";
     echo "<h2>Datos del Usuario</h2>";
-    echo "<p>Primer Nombre: " . htmlspecialchars($row['primer_nombre']) . "</p>";
-    echo "<p>Segundo Nombre: " . htmlspecialchars($row['segundo_nombre']) . "</p>";
-    echo "<p>Primer Apellido: " . htmlspecialchars($row['primer_apellido']) . "</p>";
-    echo "<p>Segundo Apellido: " . htmlspecialchars($row['segundo_apellido']) . "</p>";
+    echo "<p> Bien venido : " . htmlspecialchars($row['primer_nombre'])  ." ". htmlspecialchars($row['segundo_nombre']) . " " . htmlspecialchars($row['primer_apellido']) ." " . htmlspecialchars($row['segundo_apellido'])  ;
     echo "</div>";
 } else {
     echo "<div class='container'><div class='alert alert-warning'>No se encontraron datos para el usuario.</div></div>";

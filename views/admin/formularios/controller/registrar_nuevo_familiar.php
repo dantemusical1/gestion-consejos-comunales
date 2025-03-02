@@ -2,13 +2,19 @@
 include("../../../../config/conexion.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener datos del formulario
-    $jefe_familia_id = $_POST['jefe_familia_id'];
-    $primer_nombre = $_POST['primer_nombre_carga_familia'];
-    $segundo_nombre = $_POST['segundo_nombre_carga_familia'];
-    $primer_apellido = $_POST['primer_apellido_carga_familia'];
-    $segundo_apellido = $_POST['segundo_apellido_carga_familia'];
-    $cedula = $_POST['cedula'];
+    // Obtener datos del formulario y sanitizarlos
+    $jefe_familia_id = isset($_POST['jefe_familia_id']) ? (int)$_POST['jefe_familia_id'] : 0;
+    $primer_nombre = isset($_POST['primer_nombre_carga_familia']) ? trim($_POST['primer_nombre_carga_familia']) : '';
+    $segundo_nombre = isset($_POST['segundo_nombre_carga_familia']) ? trim($_POST['segundo_nombre_carga_familia']) : '';
+    $primer_apellido = isset($_POST['primer_apellido_carga_familia']) ? trim($_POST['primer_apellido_carga_familia']) : '';
+    $segundo_apellido = isset($_POST['segundo_apellido_carga_familia']) ? trim($_POST['segundo_apellido_carga_familia']) : '';
+    $cedula = isset($_POST['cedula']) ? trim($_POST['cedula']) : '';
+
+    // Validar que los campos obligatorios no estén vacíos
+    if (empty($primer_nombre) || empty($primer_apellido) || empty($cedula)) {
+        echo "<script>alert('Por favor, complete todos los campos obligatorios.'); window.history.back();</script>";
+        exit;
+    }
 
     // Verificar si la cédula ya existe
     $checkCedulaQuery = "SELECT * FROM miembros_familia WHERE cedula = ?";
@@ -21,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // La cédula ya existe
         echo "<script>alert('La cédula ya está registrada.'); window.history.back();</script>";
     } else {
+        
         // Verificar si el jefe de familia existe
         $checkJefeFamiliaQuery = "SELECT * FROM jefes_familia WHERE id = ?";
         $jefeStmt = mysqli_prepare($conn, $checkJefeFamiliaQuery);

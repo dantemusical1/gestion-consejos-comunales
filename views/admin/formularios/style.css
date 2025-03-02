@@ -20,3 +20,13 @@ body {
 .carousel-control-next {
     width: 5%; /* Ajustar el ancho de las flechas */
 }
+
+
+
+.table-bordered {
+    border: 1px solid #d3d3d3;
+}
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #d3d3d3;
+}

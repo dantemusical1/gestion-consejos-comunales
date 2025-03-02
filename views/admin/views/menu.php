@@ -14,6 +14,7 @@
         <li class="nav-item">
           <a class="nav-link" href="mostrar_miembros_consejo_comunal.php"><i class="bi bi-person-lines-fill"></i> Miembros consejo comunal </a>
         </li>
+
         <li class="nav-item">
           <a class="nav-link" href="mostrar_familias_y_jefes_de_familia.php"><i class="bi bi-house-door-fill"></i> Familias</a>
         </li>

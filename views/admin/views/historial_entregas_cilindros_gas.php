@@ -1,8 +1,3 @@
-<?php
-include('../Objetos/Clap.php');
-include('../Objetos/Persona.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,109 +13,106 @@ include('../Objetos/Persona.php');
     <?php
     include('menu.php');
     ?>
-
-
-
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="text-center">Lista de Entregas de gas <?php $ConsejoComunal="Campo Elias"; echo $ConsejoComunal; ?></h1> 
-<div class="row">
-<div class="mt-4 mb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center">Lista de Entregas de gas <?php $ConsejoComunal="Mirabel"; echo $ConsejoComunal; ?></h1> 
+                </div>   
+            <div class="row">
+      <div class="mt-4 mb-4">
+            <a href="../formularios/form_registro_entrega_cilindro.php" class="btn btn-success">Registrar Nueva entrega</a>
+            </div>
+            </div>
 <?php
+            include('../../../config/conexion.php');
+            $limit = 10;
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; 
+            $offset = ($page - 1) * $limit;
 
-echo '<a href="#" class="btn btn-success" onclick="confirmarGeneracion(); return false;">Generar TXT de Entregas</a>';
-
-?>
-
-
-
-</div>
-</div>
-
-
-<?php
-// Conexión a la base de datos
-include('../../../config/conexion.php');
-
-// Inicializar la paginación
-$limit = 10; // Número de registros por página
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Obtener el número de página actual
-$offset = ($page - 1) * $limit; // Calcular el desplazamiento
-
-// Consulta para obtener el total de registros de cilindros
-$totalQuery = "SELECT COUNT(*) as total FROM historial_entregas_cilindros";
-$totalResult = $conn->query($totalQuery);
-$totalRow = $totalResult->fetch_assoc();
-$totalRecords = $totalRow['total'];
-$totalPages = ceil($totalRecords / $limit); // Calcular el número total de páginas
-
-// Consulta para obtener los registros de cilindros con paginación
-$query = "SELECT id_entrega, fecha_entrega, nro_casa, detalles, 'Gas' as tipo FROM historial_entregas_cilindros LIMIT $limit OFFSET $offset";
-
-$result = $conn->query($query);
-
-// Mostrar los resultados en una tabla
-echo '<div class="container mt-5">';
-echo '<h2>Historial de Entregas de Cilindros</h2>';
-echo '<table class="table table-bordered table-striped table-hover">';
-echo '<thead>';
-echo '<tr class="table-primary">';
-echo '<th>ID Entrega</th>';
-echo '<th>Fecha de Entrega</th>';
-echo '<th>Número de Casa</th>';
-echo '<th>Detalles</th>';
-echo '<th>Tipo</th>';
-echo '<th>Acciones</th>'; // Nueva columna para acciones
-echo '</tr>';
-echo '</thead>';
-echo '<tbody>';
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        echo '<tr>';
-        echo '<td>' . htmlspecialchars($row['id_entrega']) . '</td>';
-        $fechaOriginal = $row['fecha_entrega'];
-
-        // Crear un objeto DateTime a partir de la fecha original
-        $fecha = new DateTime($fechaOriginal);
+            // Consulta para obtener el total de registros de cilindros
+            $totalQuery = "SELECT COUNT(*) as total FROM historial_entregas_cilindros";
+            $totalResult = $conn->query($totalQuery);
+            $totalRow = $totalResult->fetch_assoc();
+            $totalRecords = $totalRow['total'];
+            $totalPages = ceil($totalRecords / $limit); 
+            $query = "
+            SELECT 
+                he.id_entrega, 
+                he.id_miembro, 
+                he.id_jefe_familia, 
+                he.fecha_entrega, 
+                he.nro_casa, 
+                he.detalles, 
+                'Gas' as tipo,
+                CONCAT(mc.primer_nombre, ' ', mc.segundo_nombre, ' ', mc.primer_apellido, ' ', mc.segundo_apellido) AS nombre_completo,
+                CONCAT(jf.primer_nombre, ' ', jf.segundo_nombre, ' ', jf.primer_apellido, ' ', jf.segundo_apellido) AS nombre_completo_jefe
+            FROM 
+                historial_entregas_cilindros he
+            LEFT JOIN 
+                miembro_consejo_comunal mc ON he.id_miembro = mc.id_miembro
+            LEFT JOIN 
+                jefes_familia jf ON he.id_jefe_familia = jf.id
+            LIMIT $limit OFFSET $offset
+        ";
+        $result = $conn->query($query);
         
-        // Formatear la fecha en el formato 'd-m-Y'
-        $fechaFormateada = $fecha->format('d-m-Y');
-        
-        // Mostrar la fecha formateada
-        echo '<td>' . htmlspecialchars($fechaFormateada) . '</td>';
-        
-        echo '<td>' . htmlspecialchars($row['nro_casa']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['detalles']) . '</td>';
-        echo '<td>' . htmlspecialchars($row['tipo']) . '</td>';
-        
-        // Botones de modificar y eliminar
-        echo '<td>';
-        // Botón para modificar
-        echo '<form action="controller/modificar_entrega_gas.php" method="post" style="display:inline;">';
-        echo '<input type="hidden" name="id_entrega" value="' . htmlspecialchars($row['id_entrega']) . '">';
-        echo '<button type="submit" class="btn btn-warning btn-sm"><i class="bi bi-journal"></i></button>';
-        echo '</form>';
-        
-        // Botón para eliminar
-        echo '<form action="controller/eliminar_entrega_gas.php" method="post" style="display:inline;">';
-        echo '<input type="hidden" name="id_entrega" value="' . htmlspecialchars($row['id_entrega']) . '">';
-        echo '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este registro?\');"><i class="bi bi-trash-fill"></i></button>';
-        echo '</form>';
-        echo '</td>';
-        
+        // Mostrar los resultados en una tabla
+        echo '<div class="container mt-5">';
+        echo '<h2>Historial de Entregas de Cilindros</h2>';
+        echo '<table class="table table-bordered table-striped table-hover">';
+        echo '<thead>';
+        echo '<tr class="table-primary">';
+        echo '<th>Fecha de Entrega</th>';
+        echo '<th>Número de Casa</th>';
+        echo '<th>Responsable entrega</th>';
+        echo '<th>Receptor de recibir</th>';
+        echo '<th>Detalles</th>';
+        echo '<th>Tipo</th>';
+        echo '<th>Acciones</th>'; 
         echo '</tr>';
-    }
-} else {
-    echo '<tr><td colspan="6">No se encontraron registros.</td></tr>'; // Cambiar a 6 para incluir la columna de acciones
-}
-
-echo '</tbody>';
-echo '</table>';
-echo '</div>';
-
+        echo '</thead>';
+        echo '<tbody>';
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo '<tr>';
+                $fechaOriginal = $row['fecha_entrega'];
+                $fecha = new DateTime($fechaOriginal);        
+                // Formatear la fecha en el formato 'd-m-Y'
+                $fechaFormateada = $fecha->format('d-m-Y'); 
+                echo '<td>' . htmlspecialchars($fechaFormateada) . '</td>';            
+                echo '<td>' . htmlspecialchars($row['nro_casa']) . '</td>';  
+                echo '<td>' . htmlspecialchars($row['nombre_completo']) . '</td>';
+                // Mostrar el nombre completo del jefe de familia
+                echo '<td>' . htmlspecialchars($row['nombre_completo_jefe']) . '</td>';
+                echo '<td>' . htmlspecialchars($row['detalles']) . '</td>';
+                echo '<td>' . htmlspecialchars($row['tipo']) . '</td>';
+        
+                // Botones
+                
+                echo '<td>';
+                // Botón para modificar
+                echo '<form action="controller/modificar_entrega_gas.php" method="post" style="display:inline;">';
+                echo '<input type="hidden" name="id_entrega" value="' . htmlspecialchars($row['id_entrega']) . '">';
+                echo '<button type="submit" class="btn btn-warning btn-sm"><i class="bi bi-journal"></i></button>';
+                echo '</form>';
+                
+                // Botón para eliminar
+                echo '<form action="controller/eliminar_entrega_gas.php" method="post" style="display:inline;">';
+                echo '<input type="hidden" name="id_entrega" value="' . htmlspecialchars($row['id_entrega']) . '">';
+                echo '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'¿Estás seguro de que deseas eliminar este registro?\');"><i class="bi bi-trash-fill"></i></button>';
+                echo '</form>';
+                echo '</td>';
+                
+                echo '</tr>';
+            }
+        } else {
+            echo '<tr><td colspan="7">No se encontraron registros.</td></tr>'; // Cambiar a 7 para incluir la columna de acciones
+        }
+        
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
 // Paginación
 echo '<nav aria-label="Page navigation">';
 echo '<ul class="pagination justify-content-center">';
@@ -138,13 +130,14 @@ echo '</nav>';
 
 echo '</div>'; 
 
-// Cerrar la conexión
 $conn->close();
 ?>
         </div>
     </div>
 </div>
+<script src="../../../node_modules/jquery/dist/jquery.js"></script>
 <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-<script src="alert_entregas_gas_txt.js"></script>
+<script src="../../../node_modules/@popperjs/core/dist/umd/popper.js"></script>
+<script src="alert_entregas_gas.js"></script>
 </body>
 </html>

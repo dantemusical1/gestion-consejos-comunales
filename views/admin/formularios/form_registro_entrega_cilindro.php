@@ -7,28 +7,31 @@
     <!-- Aquí inicia los módulos globales -->
     <link rel="stylesheet" href="../../../node_modules/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="icon" href="../../../asset/logoclap.jpg" type="image/x-icon">
+
     <title>Registro de Entrega de Cilindros de Gas</title>
 </head>
 <body>
-<?php
-include('menu-retroceder.php');
-?>
+
+            <?php
+            include('menu-retroceder.php');
+            ?>
 
 <div class="container">
     <div class="row justify-content-center pt-1 mt-5">
         <div class="col-md-6 formulario">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="text-center card-title">Modificar Entrega de Cilindros</h2>
+                    <h2 class="text-center card-title">Entrega de Cilindros</h2>
                 </div>
                 <div class="card-body pt-5">
                     <form method="post" action="controller/agregar_entrega_cilindro.php">
                         <input type="hidden" name="id_entrega" value="<?php echo htmlspecialchars($row['id_entrega']); ?>">
                         
                         <div class="mb-3">
-    <label for="id_miembro" class="form-label">Miembro responsable de la entrega</label>
-    <select class="form-select" name="id_miembro" required>
-        <option value="" disabled selected>Seleccione un miembro</option>
+                            <label for="id_miembro" class="form-label">Miembro responsable de la entrega</label>
+                            <select class="form-select" name="id_miembro" required>
+                            <option value="" disabled selected>Seleccione un miembro</option>
         <?php
         // Conexión a la base de datos
         include('../../../config/conexion.php'); 
@@ -56,16 +59,47 @@ include('menu-retroceder.php');
             // Manejo de errores en caso de que la consulta falle
             echo '<option value="" disabled>Error al obtener miembros</option>';
         }
-
-        // Cierra la conexión a la base de datos
         mysqli_close($conn);
         ?>
     </select>
 </div>
                         <div class="mb-3">
-                            <label for="id_jefe_familia" class="form-label">ID Jefe de Familia</label>
-                            <input type="text" class="form-control" name="id_jefe_familia" value="<?php echo htmlspecialchars($row['id_jefe_familia']); ?>" required>
-                        </div>
+                            <label for="id_jefe_familia" class="form-label">Responsable de recibir</label>
+                            <select class="form-select" name="id_jefe_familia" required>
+                            <option value="" disabled selected>Seleccione un jefe de familia</option>
+                           <?php
+                                // Conexión a la base de datos
+                                include('../../../config/conexion.php'); 
+
+             // Consulta para obtener los miembros  
+ $query_family = "SELECT `id`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `nacionalidad`, `cedula`, `genero`, `direccion`, `nro_casa`, `email`, `telefono`, `estado_de_discapacidad`, `id_red` FROM `jefes_familia`";
+ $result = mysqli_query($conn, $query_family);
+
+    // Verifica si la consulta fue exitosa
+            if ($result) {
+     // Verifica si hay resultados y genera las opciones
+     if (mysqli_num_rows($result) > 0) {
+         while ($miembro = mysqli_fetch_assoc($result)) {
+             // Concatenar nombres y apellidos
+             $nombreCompleto = htmlspecialchars($miembro['primer_nombre']) . ' ' . 
+                               htmlspecialchars($miembro['segundo_nombre']) . ' ' . 
+                               htmlspecialchars($miembro['primer_apellido']) . ' ' . 
+                               htmlspecialchars($miembro['segundo_apellido']);
+
+             echo '<option value="' . htmlspecialchars($miembro['id']) . '">' . $nombreCompleto . '</option>';
+         }
+     } else {
+         echo '<option value="" disabled>No hay miembros disponibles</option>';
+     }
+ } else {
+     // Manejo de errores en caso de que la consulta falle
+     echo '<option value="" disabled>Error al obtener miembros</option>';
+ }
+
+                 // Cierra la conexión a la base de datos
+                                mysqli_close($conn);
+                            ?>                          
+                       </div>
 
                         <div class="mb-3">
                             <label for="fecha_entrega" class="form-label">Fecha de Entrega</label>
@@ -77,11 +111,7 @@ include('menu-retroceder.php');
                             <input type="text" class="form-control" name="nro_casa" value="<?php echo htmlspecialchars($row['nro_casa']); ?>" required>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="detalles" class="form-label">Detalles</label>
-                            <textarea class="form-control" name="detalles" required><?php echo htmlspecialchars($row['detalles']); ?></textarea>
-                        </div>
-
+                      
                         <div class="mb-3">
     <label for="id_cilindro" class="form-label">Tipo de Cilindro</label>
     <select class="form-select" name="id_cilindro" required>
@@ -115,8 +145,42 @@ include('menu-retroceder.php');
     </select>
 </div>
 
-                        <button type="submit" name="actualizar" class="btn btn-primary">Actualizar</button>
-                        <a href="historial_entregas.php" class="btn btn-secondary">Cancelar</a>
+<div class="mb-3">
+                            <label for="detalles" class="form-label">Detalles</label>
+                            <textarea class="form-control" name="detalles" required><?php echo htmlspecialchars($row['detalles']); ?></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="">Precio</label>
+                            <input type="number" class="form-control" name="precio">
+                        </div>
+
+                        <script>
+
+        function validateNumberInput(event) {
+
+            const input = event.target;
+             const value = input.value;
+    // Eliminar caracteres no numéricos
+
+    input.value = value.replace(/[^0-9.]/g, '');
+    // Si se permite un solo punto decimal
+
+    const parts = input.value.split('.');
+
+    if (parts.length > 2) {
+
+        input.value = parts[0] + '.' + parts[1];
+
+    }
+
+}
+
+</script>
+
+
+                        <button type="submit" name="Registrar" class="btn btn-primary">Actualizar</button>
+                        <a href="../views/historial_entregas_cilindros_gas.php" class="btn btn-secondary">Cancelar</a>
                     </form>
                 </div>
             </div>
@@ -125,5 +189,6 @@ include('menu-retroceder.php');
 </div>
 
 <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="../../../node_modules/@popperjs/core/dist/umd/popper"></script>
 </body>
 </html>

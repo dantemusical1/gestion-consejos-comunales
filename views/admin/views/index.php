@@ -6,13 +6,15 @@
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="../../../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="icon" href="../../../asset/logoclap.jpg" type="image/x-icon">
+
     <title>Menu inicial</title>
 </head>
 <body>
 
-<?php
-include('menu.php')
-?>
+        <?php
+        include('menu.php')
+        ?>
 
 
 <?php
@@ -55,7 +57,10 @@ echo '<h2>Historial de Entregas</h2>';
 echo '<table class="table table-bordered  table-striped table-hover">';
 echo '<thead>';
 echo '<tr class="table-primary">';
+
+/*
 echo '<th>ID Entrega</th>';
+*/
 echo '<th>Fecha de Entrega</th>';
 echo '<th>Número de Casa</th>';
 echo '<th>Detalles</th>';
@@ -67,7 +72,10 @@ echo '<tbody>';
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo '<tr>';
-        echo '<td>' . htmlspecialchars($row['id_entrega']) . '</td>';
+       /* 
+       echo '<td>' . htmlspecialchars($row['id_entrega']) . '</td>';
+       */
+      
         $fechaOriginal = $row['fecha_entrega'];
 
         // Crear un objeto DateTime a partir de la fecha original
@@ -110,7 +118,7 @@ if ($page < $totalPages) {
 echo '</ul>';
 echo '</nav>';
 
-echo '</div>'; // Cerrar contenedor
+echo '</div>'; 
 
 // Cerrar la conexión
 $conn->close();

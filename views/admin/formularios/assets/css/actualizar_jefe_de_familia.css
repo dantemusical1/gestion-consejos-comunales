@@ -1,0 +1,23 @@
+/* Estilo para el campo de entrada válido */
+.is-valid {
+    border-color: #28a745; /* Verde */
+    background-color: #d4edda; /* Fondo verde claro */
+}
+
+/* Estilo para el campo de entrada inválido */
+.is-invalid {
+    border-color: #dc3545; /* Rojo */
+    background-color: #f8d7da; /* Fondo rojo claro */
+}
+
+/* Estilo para el mensaje de advertencia */
+.invalid-feedback {
+    display: none; /* Ocultar por defecto */
+    color: #dc3545; /* Rojo */
+    font-size: 0.875em; /* Tamaño de fuente más pequeño */
+}
+
+/* Mostrar el mensaje de advertencia cuando el campo es inválido */
+input.is-invalid + .invalid-feedback {
+    display: inline; /* Mostrar el mensaje */
+}
