@@ -16,22 +16,17 @@
 <body>
 <?php
 include('../menu_retroceso.php');
-
 ?>
-
-
 
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <h1 class="text-center">Lista de Entregas de gas <?php $ConsejoComunal="Campo Elias"; echo $ConsejoComunal; ?></h1> 
 <div class="row">
-<div class="mt-4 mb-4">
-<?php
-
-echo '<a href="pdf/resumen_entregas_gas.php" class="btn btn-success" onclick="confirmarGeneracion(); return false;">Generar TXT de Entregas</a>';
-
-?>
+    <div class="mt-4 mb-4">
+        <?php
+            echo '<a href="pdf/resumen_entregas_gas.php" class="btn btn-success" onclick="confirmarGeneracion(); return false;">Generar Reporte personal</a>';
+        ?>
 
 
 
@@ -60,25 +55,23 @@ $query = "SELECT id_entrega, fecha_entrega, nro_casa, detalles, 'Gas' as tipo FR
 
 $result = $conn->query($query);
 
-// Mostrar los resultados en una tabla
-echo '<div class="container mt-5">';
-echo '<h2>Historial de Entregas de Cilindros</h2>';
-echo '<table class="table table-bordered table-striped table-hover">';
-echo '<thead>';
-echo '<tr class="table-primary">';
-echo '<th>ID Entrega</th>';
-echo '<th>Fecha de Entrega</th>';
-echo '<th>Número de Casa</th>';
-echo '<th>Detalles</th>';
-echo '<th>Tipo</th>';
-echo '</tr>';
-echo '</thead>';
-echo '<tbody>';
+                // Mostrar los resultados en una tabla
+                echo '<div class="container mt-5">';
+                echo '<h2>Historial de Entregas de Cilindros</h2>';
+                echo '<table class="table table-bordered table-striped table-hover">';
+                echo '<thead>';
+                echo '<tr class="table-primary">';
+                echo '<th>Fecha de Entrega</th>';
+                echo '<th>Número de Casa</th>';
+                echo '<th>Detalles</th>';
+                echo '<th>Tipo</th>';
+                echo '</tr>';
+                echo '</thead>';
+                echo '<tbody>';
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo '<tr>';
-        echo '<td>' . htmlspecialchars($row['id_entrega']) . '</td>';
         $fechaOriginal = $row['fecha_entrega'];
 
         // Crear un objeto DateTime a partir de la fecha original
@@ -128,7 +121,7 @@ $conn->close();
     </div>
 </div>
 <script src="../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
-<script src="alert_entregas_gas_txt.js"></script>
+<script src="alert_reporte_personnal.js"></script>
 
 
 </body>

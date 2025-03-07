@@ -10,7 +10,7 @@
           <a class="nav-link active" aria-current="page" href="views/info_personal.php">Mi informacion</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="views/info_familiar.php">Mis datos personales</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="views/actualizar_clave_user.php">Actualizar clave</a>

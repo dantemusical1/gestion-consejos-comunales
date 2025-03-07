@@ -1,14 +1,23 @@
 <?php
 include('../../../../fpdf186/fpdf.php');
 include('../../../../config/conexion.php');
+
 class PDF extends FPDF
 {
     function Header()
     {
+        // Agregar los logos
+        $this->Image('municipio.png', 10, 10, 30); // Logo del municipio a la izquierda
+        $this->Image('alcaldia.png', 170, 10, 30); // Logo de la alcaldía a la derecha
+
+        // Ajustar la posición Y para el texto
+        $this->SetY(20); // Ajustar la posición Y para que no se superponga con los logos
+
         $this->SetFont('Times', 'B', 12);
         $headerText = "REPUBLICA BOLIVARIANA DE VENEZUELA";
         $headerText2 = "ESTADO BOLIVARIANO DE MERIDA";
-        $headerText3 = "LA AZULITA";
+        $headerText3 = "MUNICIPIO ANDRES BELLO";
+        $headerText4 = "LA AZULITA";
         
         // Calcular el ancho del texto
         $textWidth = $this->GetStringWidth($headerText);
@@ -16,11 +25,12 @@ class PDF extends FPDF
         // Establecer la posición X para centrar
         $this->SetX((210 - $textWidth) / 2); // 210 mm es el ancho de A4
         
-        // Imprimir el encabezado
-        $this->Cell($textWidth, 10, $headerText, 0, 1, 'C');
-        $this->Cell(0, 10, $headerText2, 0, 1, 'C');
-        $this->Cell(0, 10, $headerText3, 0, 1, 'C');
-        $this->Ln(10); // Espacio después del encabezado
+        // Imprimir el encabezado con menor interlineado
+        $this->Cell($textWidth, 8, $headerText, 0, 1, 'C'); // Cambiar 10 a 8
+        $this->Cell(0, 8, $headerText2, 0, 1, 'C'); // Cambiar 10 a 8
+        $this->Cell(0, 8, $headerText3, 0, 1, 'C'); // Cambiar 10 a 8
+        $this->Cell(0, 8, $headerText4, 0, 1, 'C'); // Cambiar 10 a 8
+        $this->Ln(5); // Espacio después del encabezado
     }
 
     function Footer()
@@ -56,6 +66,11 @@ Constancia que se expide el dia ".$fecha." .
 
 // Agregar el texto al PDF
 $pdf->MultiCell(0, 10, $texto);
+
+// Espacio para la firma
+$pdf->Ln(20); // Espacio antes de la firma
+$pdf->Cell(0, 10, '__________________________', 0, 1, 'C'); // Línea para la firma
+$pdf->Cell(0, 10, 'Firma del Jefe(a) de Consejo Comunal', 0, 1, 'C'); // Texto para la firma
 
 // Salida del PDF
 $pdf->Output();
