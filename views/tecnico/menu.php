@@ -20,7 +20,7 @@
           <a class="nav-link" href="#"><i class="bi bi-key-fill"></i> Cambiar clave</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="bi bi-person-fill-add"></i> Registro de usuarios</a>
+          <a class="nav-link" href="registro_sistema.php"><i class="bi bi-person-fill-add"></i> Registro de usuarios</a>
         </li>
       </ul>
     </div>
